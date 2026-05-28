@@ -61,25 +61,19 @@ const user: User = {
               <h3 className="text-lg font-semibold text-amber-400 mb-3">练习 1.1</h3>
               <p className="text-slate-300 text-sm mb-3">定义一个商品接口，包含：name（商品名）、price（价格）、stock（库存）</p>
               <CodeExercise
-                initialCode={`// 定义商品接口
-// 提示：使用 interface 关键字，定义 name, price, stock 三个属性
+                initialCode={`const product = {
 
-// 创建商品对象
-const product = {
-  // TODO: 填入 name, price, stock 属性
 };
 
 console.log("商品:", product.name);
 console.log("价格:", product.price);
 console.log("库存:", product.stock);`}
-                expectedOutput={`// 定义商品接口
-interface Product {
+                expectedOutput={`interface Product {
   name: string;
   price: number;
   stock: number;
 }
 
-// 创建商品对象
 const product: Product = {
   name: "iPhone 15",
   price: 6999,
@@ -118,41 +112,27 @@ console.log(point);`}</pre>
               <h3 className="text-lg font-semibold text-amber-400 mb-3">练习 2.1</h3>
               <p className="text-slate-300 text-sm mb-3">用 type 定义一个坐标类型，然后计算两个坐标的距离：</p>
               <CodeExercise
-                initialCode={`// 定义坐标类型
-// 提示：使用 type 关键字
-type Coordinate = {
-  // TODO: 添加 x 和 y 属性（都是 number）
-};
+                initialCode={`function distance(p1, p2) {
 
-// 计算欧几里得距离
-function distance(p1, p2) {
-  const dx = p2.x - p1.x;
-  const dy = p2.y - p1.y;
-  // TODO: 使用 Math.sqrt 计算并返回距离
-  return 0; // 修改这里
 }
 
-// 测试
 const pointA = { x: 0, y: 0 };
 const pointB = { x: 3, y: 4 };
 
 console.log("距离:", distance(pointA, pointB));`}
-                expectedOutput={`// 定义坐标类型
-type Coordinate = {
+                expectedOutput={`type Coordinate = {
   x: number;
   y: number;
 };
 
-// 计算欧几里得距离
-function distance(p1, p2) {
+function distance(p1: Coordinate, p2: Coordinate): number {
   const dx = p2.x - p1.x;
   const dy = p2.y - p1.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-// 测试
-const pointA = { x: 0, y: 0 };
-const pointB = { x: 3, y: 4 };
+const pointA: Coordinate = { x: 0, y: 0 };
+const pointB: Coordinate = { x: 3, y: 4 };
 
 console.log("距离:", distance(pointA, pointB));`}
               />
@@ -288,28 +268,35 @@ console.log(user1);
               <h3 className="text-lg font-semibold text-amber-400 mb-3">练习 4.1</h3>
               <p className="text-slate-300 text-sm mb-3">定义一个配置接口，只有 url 是必填的，其他都是可选：</p>
               <CodeExercise
-                initialCode={`// 定义配置接口：url 必填，timeout、headers 可选
-// 使用 interface 定义，url 必填，timeout 和 headers 可选（带 ?）
+                initialCode={`const config1 = {
 
-// 测试：提供所有字段
-const config1 = {
-  url: "https://api.example.com",
-  // 补全其他字段
 };
 
-// 测试：只提供必填字段
 const config2 = {
   url: "https://api.example.com"
 };
 
 console.log("完整配置:", JSON.stringify(config1));
 console.log("简化配置:", JSON.stringify(config2));`}
-                expectedOutput={`// 定义配置接口
-interface Config {
+                expectedOutput={`interface Config {
   url: string;
   timeout?: number;
   headers?: Record<string, string>;
 }
+
+const config1: Config = {
+  url: "https://api.example.com",
+  timeout: 5000,
+  headers: { "Content-Type": "application/json" }
+};
+
+const config2: Config = {
+  url: "https://api.example.com"
+};
+
+console.log("完整配置:", JSON.stringify(config1));
+console.log("简化配置:", JSON.stringify(config2));`}
+              />
 
 // 测试：提供所有字段
 const config1: Config = {
@@ -362,40 +349,29 @@ console.log(dog.name, "是一只", dog.breed);`}</pre>
                 设计一个继承关系：基础是 Shape（有 color 属性），然后 Circle 继承它并添加 radius，Rectangle 继承它并添加 width 和 height
               </p>
               <CodeExercise
-                initialCode={`// 基础形状（用 interface 定义，有 color 属性）
-// 接口继承：Circle 继承 Shape 并添加 radius，Rectangle 继承 Shape 并添加 width 和 height
-
-// 创建圆形实例
-const circle = {
-  color: "红色",
-  // 补全 radius
+                initialCode={`const circle = {
+  color: "红色"
 };
 
-// 创建矩形实例
 const rect = {
-  color: "蓝色",
-  // 补全 width 和 height
+  color: "蓝色"
 };
 
 console.log("圆形:", JSON.stringify(circle));
 console.log("矩形:", JSON.stringify(rect));`}
-                expectedOutput={`// 基础形状
-interface Shape {
+                expectedOutput={`interface Shape {
   color: string;
 }
 
-// 圆形
 interface Circle extends Shape {
   radius: number;
 }
 
-// 矩形
 interface Rectangle extends Shape {
   width: number;
   height: number;
 }
 
-// 创建实例
 const circle: Circle = {
   color: "红色",
   radius: 5
@@ -404,6 +380,12 @@ const circle: Circle = {
 const rect: Rectangle = {
   color: "蓝色",
   width: 10,
+  height: 20
+};
+
+console.log("圆形:", JSON.stringify(circle));
+console.log("矩形:", JSON.stringify(rect));`}
+              />
   height: 20
 };
 
@@ -444,21 +426,15 @@ console.log(obj);`}</pre>
                 用交叉类型实现：创建一个 Admin 类型，同时有 name、age 和 role 属性
               </p>
               <CodeExercise
-                initialCode={`// 用交叉类型创建 Admin，同时有 name, age, role 属性
-// 提示：用 type 定义 Name, Age, Role，然后 Admin = Name & Age & Role
-
-const admin = {
-  name: "管理员",
-  // 补全 age 和 role
+                initialCode={`const admin = {
+  name: "管理员"
 };
 
 console.log(admin.name, "-", admin.role);`}
-                expectedOutput={`// 使用交叉类型组合
-type Name = { name: string };
+                expectedOutput={`type Name = { name: string };
 type Age = { age: number };
 type Role = { role: string };
 
-// Admin 同时拥有三个属性
 type Admin = Name & Age & Role;
 
 const admin: Admin = {
@@ -504,11 +480,8 @@ console.log(fruits[0]); // 苹果`}</pre>
                 用索引签名实现一个计数器，可以动态添加任意名称的计数
               </p>
               <CodeExercise
-                initialCode={`// 用索引签名实现计数器：[item: string]: number
+                initialCode={`const counter = {};
 
-const counter = {};
-
-// 添加计数
 counter["苹果"] = 5;
 counter["香蕉"] = 3;
 counter["苹果"]++;
@@ -516,14 +489,12 @@ counter["苹果"]++;
 console.log("苹果:", counter["苹果"]);
 console.log("香蕉:", counter["香蕉"]);
 console.log("总数:", counter["苹果"] + counter["香蕉"]);`}
-                expectedOutput={`// 计数器接口
-interface Counter {
+                expectedOutput={`interface Counter {
   [item: string]: number;
 }
 
 const counter: Counter = {};
 
-// 添加计数
 counter["苹果"] = 5;
 counter["香蕉"] = 3;
 counter["苹果"]++;
@@ -554,44 +525,33 @@ console.log("总数:", counter["苹果"] + counter["香蕉"]);`}
                 设计一个电商系统：Product（商品）、BookProduct（图书，继承 Product 并添加 author）、CartItem（购物车项，包含商品和数量）
               </p>
               <CodeExercise
-                initialCode={`// 设计电商系统：
-// - Product: id, name, price
-// - BookProduct: 继承 Product，添加 author, pages
-// - CartItem: product, quantity
+                initialCode={`const book = {
 
-// 创建图书对象
-const book = {
-  // 补全 id, name, price, author, pages
 };
 
-// 添加到购物车
 const cartItem = {
-  // 补全 product 和 quantity
+
 };
 
 console.log("图书:", book.name, "- 作者:", book.author);
 console.log("购物车数量:", cartItem.quantity);
 console.log("小计:", cartItem.product.price * cartItem.quantity, "元");`}
-                expectedOutput={`// 商品接口
-interface Product {
+                expectedOutput={`interface Product {
   id: string;
   name: string;
   price: number;
 }
 
-// 图书接口（继承 Product）
 interface BookProduct extends Product {
   author: string;
   pages: number;
 }
 
-// 购物车项
 interface CartItem {
   product: Product;
   quantity: number;
 }
 
-// 创建图书
 const book: BookProduct = {
   id: "B001",
   name: "TypeScript 入门",
@@ -600,7 +560,6 @@ const book: BookProduct = {
   pages: 300
 };
 
-// 添加到购物车
 const cartItem: CartItem = {
   product: book,
   quantity: 2

@@ -139,16 +139,20 @@ console.log("总和:", sum(1, 2, 3, 4, 5)); // 15`}</pre>
                 写一个函数，接收一个名字和一个可选的职位（默认是"工程师"），返回介绍字符串
               </p>
               <CodeExercise
-                initialCode={`// 你的代码
-function introduce(name, title) {
-  // ...
+                initialCode={`function introduce(name, title) {
+
 }
 
-// 测试
 console.log(introduce("张三"));
 console.log(introduce("李四", "产品经理"));
 console.log(introduce("王五", "设计师"));`}
-                expectedOutput="张三 - 工程师\n李四 - 产品经理\n王五 - 设计师"
+                expectedOutput={`function introduce(name, title = "工程师") {
+  return name + " - " + title;
+}
+
+console.log(introduce("张三"));
+console.log(introduce("李四", "产品经理"));
+console.log(introduce("王五", "设计师"));`}
               />
             </div>
           </section>
