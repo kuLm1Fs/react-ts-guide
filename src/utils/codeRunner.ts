@@ -1,34 +1,32 @@
 /**
  * 将 TypeScript 代码转译为 JavaScript（用于浏览器端执行）
- * 注意：这是简化版转译，只处理练习中可能用到的语法
  */
 export function transpileTS(code: string): string {
   let result = code;
 
-  // 移除 interface 声明
-  result = result.replace(/^interface\s+\w+\s*\{[^}]*\}/gm, '');
-  result = result.replace(/^interface\s+\w+\s+extends\s+[^{]+\{/gm, (match) => {
-    // 处理 extends 的情况，提取 extend 后的类型名
-    const extendMatch = match.match(/extends\s+(\w+)/);
-    return '';
-  });
+  // 1. 移除 interface 声明（整行）
+  result = result.replace(/^interface\s+\w+[^{]*\{[^}]*\}/gm, '');
 
-  // 移除 type 别名声明（简单类型）
-  result = result.replace(/^type\s+\w+\s*=\s*[^;]+;/gm, '');
+  // 2. 移除 type 别名声明（整行）
+  result = result.replace(/^type\s+\w+\s*=[^;]+;/gm, '');
 
-  // 移除 : type 注解（变量声明、函数参数、返回值）
-  result = result.replace(/:\s*(string|number|boolean|void|any|\w+(\[\])?)\s*([=,);\n\r])/g, '$3');
+  // 3. 处理对象属性类型注解（只处理 TS 已知类型）
+  // { name: string; price: 6999 } -> { name; price: 6999 }
+  result = result.replace(/(\w+)\s*:\s*(string|number|boolean|void|any)\s*([,;}\s])/g, '$1$3');
 
-  // 移除函数参数和返回值的类型注解
-  result = result.replace(/(\w+)\s*:\s*(string|number|boolean|void|any|\w+(\[\])?)/g, '$1');
+  // 4. 处理函数返回类型
+  // function foo(): number { } -> function foo() { }
+  result = result.replace(/\)\s*:\s*[a-zA-Z]\w*/g, ')');
 
-  // 移除 as 断言
+  // 5. 处理变量/参数类型注解（只移除标识符类型的类型名）
+  // const x: SomeType = value -> const x = value
+  // 注意：不移除数字值（price: 6999 不会被影响，因为 "6999" 不是字母开头的标识符）
+  result = result.replace(/:\s*([a-zA-Z]\w*)(\[\])?(?=\s*[=,);])/g, '');
+
+  // 6. 移除 as 断言
   result = result.replace(/\s+as\s+\w+/g, '');
 
-  // 移除 <> 泛型（简单处理）
-  result = result.replace(/<\w+(\[\])?>/g, '');
-
-  // 清理空行
+  // 7. 清理空行
   result = result.replace(/^\s*$/gm, '');
 
   return result.trim();
