@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React + TypeScript 学习指南
 
-## Getting Started
+从零开始系统掌握 TypeScript 与 React，目标：**能参与团队 React 项目**。
 
-First, run the development server:
+## 学习计划
+
+| 阶段 | 内容 | 课时 |
+|------|------|------|
+| Phase 1 | TypeScript 基础 | L1-L4 |
+| Phase 2 | React 核心概念 | L5-L8 |
+| Phase 3 | Hooks 进阶 | L9-L11 |
+| Phase 4 | React 生态 | L12-L14 |
+| Phase 5 | 全栈实践 | L15-L18 |
+
+## 快速开始
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 技术栈
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **框架**: Next.js 16 (App Router)
+- **语言**: TypeScript 5
+- **样式**: Tailwind CSS 4
 
-## Learn More
+## 项目结构
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── page.tsx           # 首页 - 学习路径概览
+│   ├── layout.tsx         # 根布局
+│   ├── globals.css        # 全局样式
+│   └── lessons/           # 课程页面
+│       └── l1/ ~ l18/     # 各课时
+└── components/           # 公共组件
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 课时详情
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Phase 1: TypeScript 基础
+- **L1** - TS 环境与基础类型
+- **L2** - 接口与类型别名
+- **L3** - 函数类型
+- **L4** - 泛型入门
 
-## Deploy on Vercel
+### Phase 2: React 核心概念
+- **L5** - JSX 基础
+- **L6** - 组件基础
+- **L7** - State 与事件
+- **L8** - 副作用与数据获取
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Phase 3: Hooks 进阶
+- **L9** - Hooks 深入
+- **L10** - Context 与全局状态
+- **L11** - useReducer 复杂状态
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Phase 4: React 生态
+- **L12** - React Router
+- **L13** - 状态管理 (Zustand)
+- **L14** - API 数据获取
+
+### Phase 5: 全栈实践
+- **L15** - Next.js 基础
+- **L16** - 数据库集成 (Prisma)
+- **L17** - 认证与会话
+- **L18** - 部署与优化
+
+## License
+
+MIT
