@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { executeCode } from "@/utils/codeRunner";
 
 export default function L2Page() {
   return (
@@ -541,21 +542,8 @@ function CodeExercise({
   const [showExpected, setShowExpected] = useState(false);
 
   const handleRun = () => {
-    try {
-      const logs: string[] = [];
-      const customConsole = {
-        log: (...args: unknown[]) => logs.push(args.map(String).join(" ")),
-        error: (...args: unknown[]) => logs.push("Error: " + args.map(String).join(" ")),
-        warn: (...args: unknown[]) => logs.push("Warn: " + args.map(String).join(" ")),
-      };
-
-      const fn = new Function("console", code);
-      fn(customConsole);
-
-      setResult({ output: logs.length > 0 ? logs.join("\n") : "(无输出)" });
-    } catch (e) {
-      setResult({ output: "", error: (e as Error).message });
-    }
+    const result = executeCode(code);
+    setResult(result);
   };
 
   return (
