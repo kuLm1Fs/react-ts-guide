@@ -66,15 +66,29 @@ const user: User = {
 
 // 创建商品对象
 const product = {
-  // 填入: name: "iPhone 15", price: 6999, stock: 100
+  // TODO: 填入 name, price, stock 属性
 };
 
 console.log("商品:", product.name);
 console.log("价格:", product.price);
 console.log("库存:", product.stock);`}
-                expectedOutput="商品: iPhone 15
-价格: 6999
-库存: 100"
+                expectedOutput={`// 定义商品接口
+interface Product {
+  name: string;
+  price: number;
+  stock: number;
+}
+
+// 创建商品对象
+const product: Product = {
+  name: "iPhone 15",
+  price: 6999,
+  stock: 100
+};
+
+console.log("商品:", product.name);
+console.log("价格:", product.price);
+console.log("库存:", product.stock);`}
               />
             </div>
           </section>
@@ -225,7 +239,25 @@ interface Pair = [string, number];  // 错误！`}</pre>
 
 // 小测验：打印 typeof 查看类型
 console.log("测试一下 typeof");`}
-                expectedOutput="测试一下 typeof"
+                expectedOutput={`// 场景1: 定义用户对象 - 用 interface
+interface User {
+  name: string;
+  age: number;
+}
+
+// 场景2: 定义 ID 类型 - 用 type（联合类型）
+type ID = string | number;
+
+// 场景3: 定义配置对象 - 用 interface
+interface Config {
+  theme: string;
+  language: string;
+}
+
+// 场景4: 定义状态 - 用 type（联合类型）
+type Status = "pending" | "active" | "done";
+
+console.log("场景1用 interface，场景2/4用 type，场景3用 interface");`}
               />
             </div>
           </section>
@@ -272,8 +304,27 @@ const config2 = {
 
 console.log("完整配置:", JSON.stringify(config1));
 console.log("简化配置:", JSON.stringify(config2));`}
-                expectedOutput={`完整配置: {"url":"https://api.example.com","timeout":5000,"headers":{"Content-Type":"application/json"}}
-简化配置: {"url":"https://api.example.com"}`}
+                expectedOutput={`// 定义配置接口
+interface Config {
+  url: string;
+  timeout?: number;
+  headers?: Record<string, string>;
+}
+
+// 测试：提供所有字段
+const config1: Config = {
+  url: "https://api.example.com",
+  timeout: 5000,
+  headers: { "Content-Type": "application/json" }
+};
+
+// 测试：只提供必填字段
+const config2: Config = {
+  url: "https://api.example.com"
+};
+
+console.log("完整配置:", JSON.stringify(config1));
+console.log("简化配置:", JSON.stringify(config2));`}
               />
             </div>
           </section>
@@ -328,8 +379,36 @@ const rect = {
 
 console.log("圆形:", JSON.stringify(circle));
 console.log("矩形:", JSON.stringify(rect));`}
-                expectedOutput={`圆形: {"color":"红色","radius":5}
-矩形: {"color":"蓝色","width":10,"height":20}`}
+                expectedOutput={`// 基础形状
+interface Shape {
+  color: string;
+}
+
+// 圆形
+interface Circle extends Shape {
+  radius: number;
+}
+
+// 矩形
+interface Rectangle extends Shape {
+  width: number;
+  height: number;
+}
+
+// 创建实例
+const circle: Circle = {
+  color: "红色",
+  radius: 5
+};
+
+const rect: Rectangle = {
+  color: "蓝色",
+  width: 10,
+  height: 20
+};
+
+console.log("圆形:", JSON.stringify(circle));
+console.log("矩形:", JSON.stringify(rect));`}
               />
             </div>
           </section>
@@ -374,7 +453,21 @@ const admin = {
 };
 
 console.log(admin.name, "-", admin.role);`}
-                expectedOutput="管理员 - super_admin"
+                expectedOutput={`// 使用交叉类型组合
+type Name = { name: string };
+type Age = { age: number };
+type Role = { role: string };
+
+// Admin 同时拥有三个属性
+type Admin = Name & Age & Role;
+
+const admin: Admin = {
+  name: "管理员",
+  age: 30,
+  role: "super_admin"
+};
+
+console.log(admin.name, "-", admin.role);`}
               />
             </div>
           </section>
@@ -423,7 +516,21 @@ counter["苹果"]++;
 console.log("苹果:", counter["苹果"]);
 console.log("香蕉:", counter["香蕉"]);
 console.log("总数:", counter["苹果"] + counter["香蕉"]);`}
-                expectedOutput="苹果: 6\n香蕉: 3\n总数: 9"
+                expectedOutput={`// 计数器接口
+interface Counter {
+  [item: string]: number;
+}
+
+const counter: Counter = {};
+
+// 添加计数
+counter["苹果"] = 5;
+counter["香蕉"] = 3;
+counter["苹果"]++;
+
+console.log("苹果:", counter["苹果"]);
+console.log("香蕉:", counter["香蕉"]);
+console.log("总数:", counter["苹果"] + counter["香蕉"]);`}
               />
             </div>
           </section>
@@ -465,7 +572,43 @@ const cartItem = {
 console.log("图书:", book.name, "- 作者:", book.author);
 console.log("购物车数量:", cartItem.quantity);
 console.log("小计:", cartItem.product.price * cartItem.quantity, "元");`}
-                expectedOutput="图书: TypeScript 入门 - 作者: 张三\n购物车数量: 2\n小计: 118 元"
+                expectedOutput={`// 商品接口
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+
+// 图书接口（继承 Product）
+interface BookProduct extends Product {
+  author: string;
+  pages: number;
+}
+
+// 购物车项
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+// 创建图书
+const book: BookProduct = {
+  id: "B001",
+  name: "TypeScript 入门",
+  price: 59,
+  author: "张三",
+  pages: 300
+};
+
+// 添加到购物车
+const cartItem: CartItem = {
+  product: book,
+  quantity: 2
+};
+
+console.log("图书:", book.name, "- 作者:", book.author);
+console.log("购物车数量:", cartItem.quantity);
+console.log("小计:", cartItem.product.price * cartItem.quantity, "元");`}
               />
             </div>
           </section>
