@@ -54,7 +54,11 @@ console.log("count:", count);`}</pre>
                 实现一个 reducer，收到 "double" 时返回状态 * 2
               </p>
               <CodeExercise
-                initialCode={`function doubleReducer(num, action) {
+                initialCode={`let n = 5;
+
+// dispatch action to double
+console.log("n:", n);`}
+                expectedOutput={`function doubleReducer(num, action) {
   if (action.type === "double") {
     return num * 2;
   }
@@ -64,7 +68,6 @@ console.log("count:", count);`}</pre>
 let n = 5;
 n = doubleReducer(n, { type: "double" });
 console.log("n:", n);`}
-                expectedOutput="n: 10"
               />
             </div>
           </section>
@@ -105,7 +108,13 @@ console.log("添加后:", todos);`}</pre>
                 用 useReducer 管理一个计数器，支持 +1 和 -1
               </p>
               <CodeExercise
-                initialCode={`function counterReducer(count, action) {
+                initialCode={`// function counterReducer(count, action) { ... }
+
+dispatch({ type: "increment" });
+dispatch({ type: "increment" });
+dispatch({ type: "decrement" });
+console.log("count:", count);`}
+                expectedOutput={`function counterReducer(count, action) {
   if (action.type === "increment") return count + 1;
   if (action.type === "decrement") return count - 1;
   return count;
@@ -121,7 +130,6 @@ dispatch({ type: "increment" });
 dispatch({ type: "increment" });
 dispatch({ type: "decrement" });
 console.log("count:", count);`}
-                expectedOutput="count: 1"
               />
             </div>
           </section>
@@ -159,7 +167,11 @@ console.log("todos:", todos);`}</pre>
                 实现 SET_NAME action，修改用户名称
               </p>
               <CodeExercise
-                initialCode={`function userReducer(user, action) {
+                initialCode={`let user = { name: "张三", age: 25 };
+
+// dispatch SET_NAME action with payload "李四"
+console.log("name:", user.name);`}
+                expectedOutput={`function userReducer(user, action) {
   if (action.type === "SET_NAME") {
     return { ...user, name: action.payload };
   }
@@ -169,7 +181,6 @@ console.log("todos:", todos);`}</pre>
 let user = { name: "张三", age: 25 };
 user = userReducer(user, { type: "SET_NAME", payload: "李四" });
 console.log("name:", user.name);`}
-                expectedOutput="name: 李四"
               />
             </div>
           </section>
@@ -211,7 +222,9 @@ console.log("state:", store.getState());`}</pre>
               <CodeExercise
                 initialCode={`let cart = { items: 0, total: 0 };
 
-function cartReducer(cart, action) {
+// dispatch ADD_ITEM actions with prices 99 and 199
+console.log("items:", cart.items, "total:", cart.total);`}
+                expectedOutput={`function cartReducer(cart, action) {
   if (action.type === "ADD_ITEM") {
     return { items: cart.items + 1, total: cart.total + action.price };
   }
@@ -222,10 +235,10 @@ function dispatch(action) {
   cart = cartReducer(cart, action);
 }
 
+let cart = { items: 0, total: 0 };
 dispatch({ type: "ADD_ITEM", price: 99 });
 dispatch({ type: "ADD_ITEM", price: 199 });
 console.log("items:", cart.items, "total:", cart.total);`}
-                expectedOutput="items: 2 total: 298"
               />
             </div>
           </section>
@@ -271,7 +284,12 @@ console.log("state:", JSON.stringify(state));`}</pre>
                 用一个 reducer 管理 form 的 username 和 password
               </p>
               <CodeExercise
-                initialCode={`function formReducer(form, action) {
+                initialCode={`let form = { username: "", password: "" };
+
+// dispatch SET_USERNAME with "admin" and SET_PASSWORD with "123456"
+console.log("username:", form.username);
+console.log("password:", form.password);`}
+                expectedOutput={`function formReducer(form, action) {
   if (action.type === "SET_USERNAME") {
     return { ...form, username: action.payload };
   }
@@ -286,7 +304,6 @@ form = formReducer(form, { type: "SET_USERNAME", payload: "admin" });
 form = formReducer(form, { type: "SET_PASSWORD", payload: "123456" });
 console.log("username:", form.username);
 console.log("password:", form.password);`}
-                expectedOutput="username: admin\npassword: 123456"
               />
             </div>
           </section>
@@ -325,6 +342,12 @@ console.log("lang:", user.settings.lang);`}</pre>
               <CodeExercise
                 initialCode={`let todo = { id: 1, text: "学习 React", completed: false, tags: ["React"] };
 
+// function toggleComplete(todo) { ... }
+console.log("completed:", todo.completed);
+console.log("text:", todo.text);
+console.log("tags:", todo.tags);`}
+                expectedOutput={`let todo = { id: 1, text: "学习 React", completed: false, tags: ["React"] };
+
 function toggleComplete(todo) {
   return { ...todo, completed: !todo.completed };
 }
@@ -333,7 +356,6 @@ todo = toggleComplete(todo);
 console.log("completed:", todo.completed);
 console.log("text:", todo.text);
 console.log("tags:", todo.tags);`}
-                expectedOutput="completed: true\ntext: 学习 React\ntags: React"
               />
             </div>
           </section>
@@ -380,7 +402,11 @@ console.log("tags:", todo.tags);`}
                 判断用什么：计数器 vs 购物车
               </p>
               <CodeExercise
-                initialCode={`function choose(reason, tool) {
+                initialCode={`// function choose(reason, tool) { ... }
+
+// 计数器：简单单值
+// 购物车：多个相关值（商品列表、总价、数量）`}
+                expectedOutput={`function choose(reason, tool) {
   console.log(reason + ":", tool);
 }
 
@@ -389,7 +415,6 @@ choose("计数器", "useState");
 
 // 购物车：多个相关值（商品列表、总价、数量）
 choose("购物车", "useReducer");`}
-                expectedOutput="计数器: useState\n购物车: useReducer"
               />
             </div>
           </section>
@@ -413,7 +438,13 @@ choose("购物车", "useReducer");`}
                 实现一个待办事项 reducer，支持添加、删除、切换完成
               </p>
               <CodeExercise
-                initialCode={`function todoReducer(todos, action) {
+                initialCode={`// function todoReducer(todos, action) { ... }
+
+let todos = [];
+// 添加"学习 React"和"写代码"，然后切换第一个的完成状态
+console.log("待办数:", todos.length);
+console.log("完成数:", todos.filter(t => t.done).length);`}
+                expectedOutput={`function todoReducer(todos, action) {
   if (action.type === "ADD") {
     return [...todos, { id: Date.now(), text: action.payload, done: false }];
   }
@@ -432,7 +463,6 @@ todos = todoReducer(todos, { type: "ADD", payload: "写代码" });
 todos = todoReducer(todos, { type: "TOGGLE", id: todos[0].id });
 console.log("待办数:", todos.length);
 console.log("完成数:", todos.filter(t => t.done).length);`}
-                expectedOutput="待办数: 2\n完成数: 1"
               />
             </div>
           </section>

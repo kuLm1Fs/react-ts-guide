@@ -53,7 +53,13 @@ console.log("JWT:", token.substring(0, 50) + "...");`}</pre>
                 创建包含用户信息的 JWT
               </p>
               <CodeExercise
-                initialCode={`function createJWT(payload) {
+                initialCode={`// function createJWT(payload) { ... }
+
+const payload = { sub: 123, name: "张三", role: "admin" };
+const token = createJWT(payload);
+console.log("token:", token);
+console.log("长度:", token.length);`}
+                expectedOutput={`function createJWT(payload) {
   const header = btoa(JSON.stringify({ alg: "HS256" }));
   const body = btoa(JSON.stringify(payload));
   const signature = btoa("sig");
@@ -64,7 +70,6 @@ const payload = { sub: 123, name: "张三", role: "admin" };
 const token = createJWT(payload);
 console.log("token:", token);
 console.log("长度:", token.length);`}
-                expectedOutput="token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEyMywibmFtZSI6IuW8oC4yIiwicm9sZSI6ImFkbWluIn0.c2ln\n长度: 66"
               />
             </div>
           </section>
@@ -110,7 +115,13 @@ console.log("验证结果:", data ? "成功" : "失败");`}</pre>
                 解析 JWT 获取用户信息
               </p>
               <CodeExercise
-                initialCode={`function parseJWT(token) {
+                initialCode={`// function parseJWT(token) { ... }
+
+const token = "header.eyJ1c2VySWQiOjEyMywibmFtZSI6IuW8oC4yIn0.signature";
+const data = parseJWT(token);
+console.log("userId:", data.userId);
+console.log("name:", data.name);`}
+                expectedOutput={`function parseJWT(token) {
   const parts = token.split(".");
   const payload = JSON.parse(atob(parts[1]));
   return payload;
@@ -120,7 +131,6 @@ const token = "header.eyJ1c2VySWQiOjEyMywibmFtZSI6IuW8oC4yIn0.signature";
 const data = parseJWT(token);
 console.log("userId:", data.userId);
 console.log("name:", data.name);`}
-                expectedOutput="userId: 123\nname: 张三"
               />
             </div>
           </section>
@@ -161,7 +171,16 @@ console.log("读取:", getCookie("token"));`}</pre>
                 设置和获取用户 Cookie
               </p>
               <CodeExercise
-                initialCode={`const cookies = {};
+                initialCode={`// const cookies = {};
+// function setCookie(name, value) { ... }
+// function getCookie(name) { ... }
+
+setCookie("user", "张三");
+setCookie("role", "admin");
+
+console.log("user:", getCookie("user"));
+console.log("role:", getCookie("role"));`}
+                expectedOutput={`const cookies = {};
 
 function setCookie(name, value) {
   cookies[name] = value;
@@ -176,7 +195,6 @@ setCookie("role", "admin");
 
 console.log("user:", getCookie("user"));
 console.log("role:", getCookie("role"));`}
-                expectedOutput="user: 张三\nrole: admin"
               />
             </div>
           </section>
@@ -218,7 +236,14 @@ console.log("获得 token:", !!token);`}</pre>
                 实现登出功能
               </p>
               <CodeExercise
-                initialCode={`let isLoggedIn = true;
+                initialCode={`// let isLoggedIn = true;
+// let currentUser = { name: "张三" };
+// function logout() { ... }
+// function getCurrentUser() { ... }
+
+logout();
+console.log("当前用户:", getCurrentUser());`}
+                expectedOutput={`let isLoggedIn = true;
 let currentUser = { name: "张三" };
 
 function logout() {
@@ -233,7 +258,6 @@ function getCurrentUser() {
 
 logout();
 console.log("当前用户:", getCurrentUser());`}
-                expectedOutput="已退出登录\n当前用户: null"
               />
             </div>
           </section>
@@ -277,7 +301,11 @@ checkRoute();`}</pre>
                 检查用户权限
               </p>
               <CodeExercise
-                initialCode={`function checkPermission(user, requiredRole) {
+                initialCode={`// function checkPermission(user, requiredRole) { ... }
+
+checkPermission({ name: "张三", role: "user" }, "admin");
+checkPermission({ name: "李四", role: "admin" }, "admin");`}
+                expectedOutput={`function checkPermission(user, requiredRole) {
   if (!user) {
     console.log("未登录");
     return false;
@@ -292,7 +320,6 @@ checkRoute();`}</pre>
 
 checkPermission({ name: "张三", role: "user" }, "admin");
 checkPermission({ name: "李四", role: "admin" }, "admin");`}
-                expectedOutput="权限不足, 需要: admin\n权限通过"
               />
             </div>
           </section>
@@ -329,7 +356,14 @@ authRequest("/api/public", null);`}</pre>
                 提取 Authorization 头中的 token
               </p>
               <CodeExercise
-                initialCode={`function extractToken(authHeader) {
+                initialCode={`// function extractToken(authHeader) { ... }
+
+const header1 = "Bearer eyJhbGciOiJIUzI1NiJ9";
+const header2 = "Basic abc123";
+
+console.log("token1:", extractToken(header1));
+console.log("token2:", extractToken(header2));`}
+                expectedOutput={`function extractToken(authHeader) {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return null;
   }
@@ -341,7 +375,6 @@ const header2 = "Basic abc123";
 
 console.log("token1:", extractToken(header1));
 console.log("token2:", extractToken(header2));`}
-                expectedOutput="token1: eyJhbGciOiJIUzI1NiJ9\ntoken2: null"
               />
             </div>
           </section>
@@ -364,7 +397,17 @@ console.log("token2:", extractToken(header2));`}
                 实现完整的登录、认证、登出流程
               </p>
               <CodeExercise
-                initialCode={`let user = null;
+                initialCode={`// let user = null;
+// let token = null;
+// function login(name, password) { ... }
+// function getAuthHeader() { ... }
+// function logout() { ... }
+
+login("张三", "123456");
+console.log("Auth:", getAuthHeader());
+logout();
+console.log("Auth:", getAuthHeader());`}
+                expectedOutput={`let user = null;
 let token = null;
 
 function login(name, password) {
@@ -392,7 +435,6 @@ login("张三", "123456");
 console.log("Auth:", getAuthHeader());
 logout();
 console.log("Auth:", getAuthHeader());`}
-                expectedOutput="登录成功: 张三\nAuth: Bearer jwt_token_1\n已退出\nAuth: null"
               />
             </div>
           </section>

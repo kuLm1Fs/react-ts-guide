@@ -56,7 +56,11 @@ console.log("Prisma schema:", JSON.stringify(schema.models));`}</pre>
                 定义 Post 模型
               </p>
               <CodeExercise
-                initialCode={`const postModel = {
+                initialCode={`// const postModel = { ... };
+
+console.log("Model:", postModel.name);
+console.log("Fields:", postModel.fields.join(", "));`}
+                expectedOutput={`const postModel = {
   name: "Post",
   fields: ["id", "title", "content", "published", "authorId"],
   relations: {
@@ -66,7 +70,6 @@ console.log("Prisma schema:", JSON.stringify(schema.models));`}</pre>
 
 console.log("Model:", postModel.name);
 console.log("Fields:", postModel.fields.join(", "));`}
-                expectedOutput="Model: Post\nFields: id, title, content, published, authorId"
               />
             </div>
           </section>
@@ -119,7 +122,15 @@ console.log("findMany:", prisma.user.findMany());`}</pre>
                 创建用户并查询
               </p>
               <CodeExercise
-                initialCode={`const users = [];
+                initialCode={`// const users = [];
+// const db = { create: (data) => { ... }, findAll: () => users };
+
+const newUser = db.create({ name: "张三", email: "zhang@example.com" });
+users.push(newUser);
+
+console.log("创建:", newUser.name);
+console.log("查询:", db.findAll().length, "个用户");`}
+                expectedOutput={`const users = [];
 
 const db = {
   create: (data) => ({ id: Date.now(), ...data }),
@@ -131,7 +142,6 @@ users.push(newUser);
 
 console.log("创建:", newUser.name);
 console.log("查询:", db.findAll().length, "个用户");`}
-                expectedOutput="创建: 张三\n查询: 1 个用户"
               />
             </div>
           </section>
@@ -166,7 +176,13 @@ console.log("文章:", user.posts[0].title);`}</pre>
                 实现用户及其评论查询
               </p>
               <CodeExercise
-                initialCode={`const db = {
+                initialCode={`// const db = { users: [{ name: "张三", comments: [...] }] };
+
+const user = db.users[0];
+console.log("用户:", user.name);
+console.log("评论数:", user.comments.length);
+user.comments.forEach(c => console.log("-", c.content));`}
+                expectedOutput={`const db = {
   users: [
     {
       name: "张三",
@@ -182,7 +198,6 @@ const user = db.users[0];
 console.log("用户:", user.name);
 console.log("评论数:", user.comments.length);
 user.comments.forEach(c => console.log("-", c.content));`}
-                expectedOutput="用户: 张三\n评论数: 2\n- 写的不错\n- 学到了"
               />
             </div>
           </section>
@@ -237,7 +252,11 @@ console.log(JSON.stringify(query({ where: { age: 25 } })));`}</pre>
                 查询前 2 个用户，只返回 id 和 name
               </p>
               <CodeExercise
-                initialCode={`const users = [
+                initialCode={`// function findUsers(options) { ... }
+
+const result = findUsers({ take: 2, select: ["id", "name"] });
+console.log(JSON.stringify(result));`}
+                expectedOutput={`const users = [
   { id: 1, name: "张三", age: 25 },
   { id: 2, name: "李四", age: 30 },
   { id: 3, name: "王五", age: 25 }
@@ -258,7 +277,6 @@ function findUsers(options) {
 
 const result = findUsers({ take: 2, select: ["id", "name"] });
 console.log(JSON.stringify(result));`}
-                expectedOutput={`[{"id":1,"name":"张三"},{"id":2,"name":"李四"}]`}
               />
             </div>
           </section>
@@ -305,7 +323,13 @@ try {
                 实现转账事务
               </p>
               <CodeExercise
-                initialCode={`let accounts = { A: 1000, B: 0 };
+                initialCode={`// function transfer(from, to, amount) { ... }
+
+if (transfer("A", "B", 500)) {
+  console.log("A 余额:", accounts.A);
+  console.log("B 余额:", accounts.B);
+}`}
+                expectedOutput={`let accounts = { A: 1000, B: 0 };
 
 function transfer(from, to, amount) {
   if (accounts[from] < amount) {
@@ -322,7 +346,6 @@ if (transfer("A", "B", 500)) {
   console.log("A 余额:", accounts.A);
   console.log("B 余额:", accounts.B);
 }`}
-                expectedOutput="转账: 500 从 A 到 B\nA 余额: 500\nB 余额: 500"
               />
             </div>
           </section>
@@ -355,7 +378,12 @@ migrations.forEach(m => {
                 列出待应用的迁移
               </p>
               <CodeExercise
-                initialCode={`const migrations = [
+                initialCode={`// const migrations = [...];
+// const pending = migrations.filter(m => !m.applied);
+
+console.log("待应用迁移:", pending.length);
+pending.forEach(m => console.log("-", m.name));`}
+                expectedOutput={`const migrations = [
   { name: "init", applied: true },
   { name: "add_users", applied: true },
   { name: "add_posts", applied: false },
@@ -365,7 +393,6 @@ migrations.forEach(m => {
 const pending = migrations.filter(m => !m.applied);
 console.log("待应用迁移:", pending.length);
 pending.forEach(m => console.log("-", m.name));`}
-                expectedOutput="待应用迁移: 2\n- add_posts\n- add_comments"
               />
             </div>
           </section>
@@ -388,7 +415,16 @@ pending.forEach(m => console.log("-", m.name));`}
                 实现完整的用户创建和查询流程
               </p>
               <CodeExercise
-                initialCode={`const db = {
+                initialCode={`// const db = { users: [], create: (data) => { ... }, findByEmail: (email) => { ... } };
+
+// 创建用户
+const user = db.create({ name: "张三", email: "zhang@example.com" });
+console.log("创建:", user.name);
+
+// 查询
+const found = db.findByEmail("zhang@example.com");
+console.log("查询:", found ? found.name : "未找到");`}
+                expectedOutput={`const db = {
   users: [],
   create: (data) => {
     const user = { id: Date.now(), ...data, createdAt: new Date().toISOString() };
@@ -405,7 +441,6 @@ console.log("创建:", user.name);
 // 查询
 const found = db.findByEmail("zhang@example.com");
 console.log("查询:", found ? found.name : "未找到");`}
-                expectedOutput="创建: 张三\n查询: 张三"
               />
             </div>
           </section>

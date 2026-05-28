@@ -53,6 +53,16 @@ console.log(addWithSideEffect(1, 2)); // 3`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 纯函数
+// function pureSum(arr) { ... }
+
+// 有副作用
+// let externalState = 0;
+// function withSideEffect(n) { ... }
+
+console.log("纯函数结果:", pureSum([1, 2, 3]));
+console.log("副作用函数结果:", withSideEffect(5));
+console.log("外部状态:", externalState);`}
+                expectedOutput={`// 纯函数
 function pureSum(arr) {
   return arr.reduce((sum, n) => sum + n, 0);
 }
@@ -67,7 +77,6 @@ function withSideEffect(n) {
 console.log("纯函数结果:", pureSum([1, 2, 3]));
 console.log("副作用函数结果:", withSideEffect(5));
 console.log("外部状态:", externalState);`}
-                expectedOutput="纯函数结果: 6\n副作用函数结果: 10\n外部状态: 10"
               />
             </div>
           </section>
@@ -101,6 +110,16 @@ console.log("注册了", effects.length, "个 effect");`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟设置标题
+// let documentTitle = "";
+// function useEffect(effect) { ... }
+
+useEffect(() => {
+  documentTitle = "学习 React";
+  console.log("设置标题:", documentTitle);
+});
+
+console.log("当前文档标题:", documentTitle);`}
+                expectedOutput={`// 模拟设置标题
 let documentTitle = "";
 
 function useEffect(effect) {
@@ -113,7 +132,6 @@ useEffect(() => {
 });
 
 console.log("当前文档标题:", documentTitle);`}
-                expectedOutput="设置标题: 学习 React\n当前文档标题: 学习 React"
               />
             </div>
           </section>
@@ -155,6 +173,21 @@ useEffect(() => console.log("count 变化:", count), [count]);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟计数器
+// let count = 0;
+// let lastCount = undefined;
+// let documentTitle = "";
+// function updateTitle() { ... }
+
+// 模拟更新
+count = 1;
+updateTitle();
+
+count = 2;
+updateTitle();
+
+count = 2; // 相同，不更新
+updateTitle();`}
+                expectedOutput={`// 模拟计数器
 let count = 0;
 let lastCount = undefined;
 let documentTitle = "";
@@ -176,7 +209,6 @@ updateTitle();
 
 count = 2; // 相同，不更新
 updateTitle();`}
-                expectedOutput="更新标题: 计数: 1\n更新标题: 计数: 2"
               />
             </div>
           </section>
@@ -230,6 +262,15 @@ stopTimer();`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// WebSocket 模拟
+// let socket = null;
+// let isConnected = false;
+// function connect(url) { ... }
+// function disconnect() { ... }
+
+connect("wss://chat.example.com");
+connect("wss://chat.example.com");
+disconnect();`}
+                expectedOutput={`// WebSocket 模拟
 let socket = null;
 let isConnected = false;
 
@@ -256,7 +297,6 @@ function disconnect() {
 connect("wss://chat.example.com");
 connect("wss://chat.example.com");
 disconnect();`}
-                expectedOutput="连接成功: wss://chat.example.com\n已连接\n连接断开"
               />
             </div>
           </section>
@@ -303,6 +343,13 @@ console.log("isLoading (同步):", isLoading);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟获取用户
+// let user = null;
+// let loading = true;
+// let error = null;
+// function getUser(id) { ... }
+
+getUser(1);`}
+                expectedOutput={`// 模拟获取用户
 let user = null;
 let loading = true;
 let error = null;
@@ -320,7 +367,6 @@ function getUser(id) {
 }
 
 getUser(1);`}
-                expectedOutput="loading: true\nuser: 张三\nloading: false"
               />
             </div>
           </section>
@@ -360,6 +406,21 @@ main();`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟 API
+// function delay(ms) { ... }
+// async function getUser(id) { ... }
+
+async function main() {
+  console.log("获取用户1...");
+  const u1 = await getUser(1);
+
+  console.log("获取用户2...");
+  const u2 = await getUser(2);
+
+  console.log("全部完成:", u1.name, u2.name);
+}
+
+main();`}
+                expectedOutput={`// 模拟 API
 function delay(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
@@ -380,7 +441,6 @@ async function main() {
 }
 
 main();`}
-                expectedOutput="获取用户1...\n获取用户2...\n全部完成: 用户1 用户2"
               />
             </div>
           </section>
@@ -418,6 +478,14 @@ fetchWithError(false);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// API 调用
+// function apiCall(success) { ... }
+
+const r1 = apiCall(false);
+console.log(r1.status, r1.message);
+
+const r2 = apiCall(true);
+console.log(r2.status, r2.data.name);`}
+                expectedOutput={`// API 调用
 function apiCall(success) {
   if (success) {
     return { status: "success", data: { id: 1, name: "李四" } };
@@ -431,7 +499,6 @@ console.log(r1.status, r1.message);
 
 const r2 = apiCall(true);
 console.log(r2.status, r2.data.name);`}
-                expectedOutput="error 请求失败\nsuccess 李四"
               />
             </div>
           </section>
@@ -456,6 +523,12 @@ console.log(r2.status, r2.data.name);`}
               </p>
               <CodeExercise
                 initialCode={`// 模拟数据获取流程
+// let state = { loading: true, data: null, error: null };
+// function fetchUser(id, shouldFail) { ... }
+
+fetchUser(1, false);
+fetchUser(999, true);`}
+                expectedOutput={`// 模拟数据获取流程
 let state = { loading: true, data: null, error: null };
 
 function fetchUser(id, shouldFail) {
@@ -478,7 +551,6 @@ function fetchUser(id, shouldFail) {
 // 测试
 fetchUser(1, false);
 fetchUser(999, true);`}
-                expectedOutput={`state: {"loading":false,"data":{"id":1,"name":"王五"},"error":null}\nstate: {"loading":false,"data":null,"error":"用户不存在"}`}
               />
             </div>
           </section>

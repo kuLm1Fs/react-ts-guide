@@ -46,6 +46,12 @@ console.log("组件是封装 UI 的方式");`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 函数组件
+// function Greeting() { ... }
+
+// 调用组件
+const message = Greeting();
+console.log(message);`}
+                expectedOutput={`// 函数组件
 function Greeting() {
   return "你好，张三！";
 }
@@ -53,7 +59,6 @@ function Greeting() {
 // 调用组件
 const message = Greeting();
 console.log(message);`}
-                expectedOutput="你好，张三！"
               />
             </div>
           </section>
@@ -81,6 +86,15 @@ console.log(message);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 用户卡片组件
+// function UserCard(props) { ... }
+
+// 测试
+const card1 = UserCard({ name: "张三", age: 25 });
+const card2 = UserCard({ name: "李四", age: 17 });
+
+console.log(card1);
+console.log(card2);`}
+                expectedOutput={`// 用户卡片组件
 function UserCard(props) {
   return "姓名: " + props.name + ", 年龄: " + props.age;
 }
@@ -91,7 +105,6 @@ const card2 = UserCard({ name: "李四", age: 17 });
 
 console.log(card1);
 console.log(card2);`}
-                expectedOutput={`姓名: 张三, 年龄: 25\n姓名: 李四, 年龄: 17`}
               />
             </div>
           </section>
@@ -123,6 +136,12 @@ console.log(UserCard("张三", 25));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 商品卡片
+// function ProductCard(name, price, stock) { ... }
+
+// 测试
+const product = ProductCard("iPhone 15", 6999, 100);
+console.log(product);`}
+                expectedOutput={`// 商品卡片
 function ProductCard(name, price, stock) {
   return name + " - 价格: " + price + "元, 库存: " + stock;
 }
@@ -130,7 +149,6 @@ function ProductCard(name, price, stock) {
 // 测试
 const product = ProductCard("iPhone 15", 6999, 100);
 console.log(product);`}
-                expectedOutput="iPhone 15 - 价格: 6999元, 库存: 100"
               />
             </div>
           </section>
@@ -160,6 +178,12 @@ console.log(Greeting("张三"));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 按钮组件
+// function Button(text) { ... }
+// text 默认是 "点击我"
+
+console.log(Button());
+console.log(Button("提交"));`}
+                expectedOutput={`// 按钮组件
 function Button(text) {
   text = text || "点击我";
   return "[ " + text + " ]";
@@ -168,7 +192,6 @@ function Button(text) {
 // 测试
 console.log(Button());
 console.log(Button("提交"));`}
-                expectedOutput={`[ 点击我 ]\n[ 提交 ]`}
               />
             </div>
           </section>
@@ -199,6 +222,14 @@ console.log(UserProfile("李四", 17, false, ["Java"]));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 列表项组件
+// function ListItem(title, tags) { ... }
+
+const item1 = ListItem("React 入门", ["React", "前端"]);
+const item2 = ListItem("Node.js 基础", ["Node", "后端"]);
+
+console.log(item1);
+console.log(item2);`}
+                expectedOutput={`// 列表项组件
 function ListItem(title, tags) {
   return title + " | 标签: " + tags.join(", ");
 }
@@ -209,7 +240,6 @@ const item2 = ListItem("Node.js 基础", ["Node", "后端"]);
 
 console.log(item1);
 console.log(item2);`}
-                expectedOutput={`React 入门 | 标签: React, 前端\nNode.js 基础 | 标签: Node, 后端`}
               />
             </div>
           </section>
@@ -246,6 +276,14 @@ console.log(Page());`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 子组件
+// function Title(text) { ... }
+// function Content(text) { ... }
+
+// Card 组件组合子组件
+// function Card(titleText, contentText) { ... }
+
+console.log(Card("欢迎", "这是页面内容"));`}
+                expectedOutput={`// 子组件
 function Title(text) { return "标题: " + text; }
 function Content(text) { return "内容: " + text; }
 
@@ -256,7 +294,6 @@ function Card(titleText, contentText) {
 
 // 测试
 console.log(Card("欢迎", "这是页面内容"));`}
-                expectedOutput={`---\n标题: 欢迎\n内容: 这是页面内容\n---`}
               />
             </div>
           </section>
@@ -288,6 +325,12 @@ console.log(nested);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// Box 组件
+// function Box(className, children) { ... }
+// className 默认 "default"
+
+console.log(Box("primary", "主要内容"));
+console.log(Box(null, "另一内容"));`}
+                expectedOutput={`// Box 组件
 function Box(className, children) {
   className = className || "default";
   return "<Box class=\\"" + className + "\\">" + children + "</Box>";
@@ -296,7 +339,6 @@ function Box(className, children) {
 // 测试
 console.log(Box("primary", "主要内容"));
 console.log(Box(null, "另一内容"));`}
-                expectedOutput={`<Box class="primary">主要内容</Box>\n<Box class="default">另一内容</Box>`}
               />
             </div>
           </section>
@@ -321,6 +363,16 @@ console.log(Box(null, "另一内容"));`}
               </p>
               <CodeExercise
                 initialCode={`// 文章组件
+// function Article(title, author, content) { ... }
+
+const article = Article(
+  "React 入门指南",
+  "张三",
+  "React 是一个用于构建用户界面的 JavaScript 库..."
+);
+
+console.log(article);`}
+                expectedOutput={`// 文章组件
 function Article(title, author, content) {
   return "=== " + title + " ===\\n作者: " + author + "\\n内容: " + content + "\\n=============";
 }
@@ -333,7 +385,6 @@ const article = Article(
 );
 
 console.log(article);`}
-                expectedOutput={`=== React 入门指南 ===\n作者: 张三\n内容: React 是一个用于构建用户界面的 JavaScript 库...\n=============`}
               />
             </div>
           </section>

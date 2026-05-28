@@ -66,6 +66,12 @@ console.log(str, num);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 泛型函数
+// function echo(arg) { ... }
+
+console.log(echo("你好"));
+console.log(echo(123));
+console.log(echo({ name: "张三" }));`}
+                expectedOutput={`// 泛型函数
 function echo(arg) {
   return arg;
 }
@@ -74,7 +80,6 @@ function echo(arg) {
 console.log(echo("你好"));
 console.log(echo(123));
 console.log(echo({ name: "张三" }));`}
-                expectedOutput={`你好\n123\n{"name":"张三"}`}
               />
             </div>
           </section>
@@ -146,6 +151,14 @@ console.log("first str:", firstElement(strs));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 交换数组前两个元素
+// function swap(arr) { ... }
+
+const arr1 = [1, 2, 3, 4];
+const arr2 = ["a", "b", "c"];
+
+console.log(swap([...arr1]));
+console.log(swap([...arr2]));`}
+                expectedOutput={`// 交换数组前两个元素
 function swap(arr) {
   if (arr.length < 2) return arr;
   [arr[0], arr[1]] = [arr[1], arr[0]];
@@ -158,7 +171,6 @@ const arr2 = ["a", "b", "c"];
 
 console.log(swap([...arr1]));
 console.log(swap([...arr2]));`}
-                expectedOutput={`[2,1,3,4]\n["b","a","c"]`}
               />
             </div>
           </section>
@@ -183,6 +195,17 @@ console.log(pair2);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 泛型响应
+// function createResponse(code, message, data) { ... }
+
+// 字符串数据响应
+const strResponse = createResponse(200, "成功", "Hello World");
+
+// 对象数据响应
+const objResponse = createResponse(200, "成功", { name: "张三", age: 25 });
+
+console.log(strResponse);
+console.log(objResponse);`}
+                expectedOutput={`// 泛型响应
 function createResponse(code, message, data) {
   return { code, message, data };
 }
@@ -195,7 +218,6 @@ const objResponse = createResponse(200, "成功", { name: "张三", age: 25 });
 
 console.log(strResponse);
 console.log(objResponse);`}
-                expectedOutput={`{"code":200,"message":"成功","data":"Hello World"}\n{"code":200,"message":"成功","data":{"name":"张三","age":25}}`}
               />
             </div>
           </section>
@@ -235,6 +257,17 @@ console.log(strContainer.get());`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 栈类
+// class Stack { ... }
+
+const stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+console.log("peek:", stack.peek());
+console.log("pop:", stack.pop());
+console.log("size:", stack.size);`}
+                expectedOutput={`// 栈类
 class Stack {
   constructor() {
     this.items = [];
@@ -266,7 +299,6 @@ stack.push(3);
 console.log("peek:", stack.peek());
 console.log("pop:", stack.pop());
 console.log("size:", stack.size);`}
-                expectedOutput="peek: 3\npop: 3\nsize: 2"
               />
             </div>
           </section>
@@ -313,6 +345,13 @@ console.log("omit:", omit(user, ["password"]));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 合并两个对象
+// function merge(obj1, obj2) { ... }
+
+const user1 = { id: 1, name: "张三" };
+const user2 = { age: 25, email: "zhang@example.com" };
+
+console.log(merge(user1, user2));`}
+                expectedOutput={`// 合并两个对象
 function merge(obj1, obj2) {
   return { ...obj1, ...obj2 };
 }
@@ -321,7 +360,6 @@ const user1 = { id: 1, name: "张三" };
 const user2 = { age: 25, email: "zhang@example.com" };
 
 console.log(merge(user1, user2));`}
-                expectedOutput={`{"id":1,"name":"张三","age":25,"email":"zhang@example.com"}`}
               />
             </div>
           </section>
@@ -367,6 +405,16 @@ console.log(result);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 合并两个数组并去重
+// function combine(arr1, arr2) { ... }
+
+const nums1 = [1, 2, 3, 4];
+const nums2 = [3, 4, 5, 6];
+console.log("合并数字:", combine(nums1, nums2));
+
+const strs1 = ["a", "b", "c"];
+const strs2 = ["b", "c", "d"];
+console.log("合并字符串:", combine(strs1, strs2));`}
+                expectedOutput={`// 合并两个数组并去重
 function combine(arr1, arr2) {
   return [...new Set([...arr1, ...arr2])];
 }
@@ -379,7 +427,6 @@ console.log("合并数字:", combine(nums1, nums2));
 const strs1 = ["a", "b", "c"];
 const strs2 = ["b", "c", "d"];
 console.log("合并字符串:", combine(strs1, strs2));`}
-                expectedOutput={`合并数字: [1,2,3,4,5,6]\n合并字符串: ["a","b","c","d"]`}
               />
             </div>
           </section>
@@ -405,6 +452,18 @@ console.log("合并字符串:", combine(strs1, strs2));`}
               </p>
               <CodeExercise
                 initialCode={`// 缓存类
+// class Cache { ... }
+
+const cache = new Cache();
+cache.set("a", 1);
+cache.set("b", 2);
+cache.set("c", 3);
+
+console.log("size:", cache.size);
+console.log("get a:", cache.get("a"));
+console.log("delete b:", cache.delete("b"));
+console.log("size after delete:", cache.size);`}
+                expectedOutput={`// 缓存类
 class Cache {
   constructor() {
     this.store = new Map();
@@ -441,7 +500,6 @@ console.log("size:", cache.size);
 console.log("get a:", cache.get("a"));
 console.log("delete b:", cache.delete("b"));
 console.log("size after delete:", cache.size);`}
-                expectedOutput="size: 3\nget a: 1\ndelete b: true\nsize after delete: 2"
               />
             </div>
           </section>

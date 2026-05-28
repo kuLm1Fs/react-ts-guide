@@ -139,109 +139,6 @@ console.log("距离:", distance(pointA, pointB));`}
             </div>
           </section>
 
-          {/* Section 3: interface vs type */}
-          <section className="bg-slate-800 rounded-lg p-6">
-            <h2 className="text-2xl font-bold text-cyan-400 mb-4">3. interface vs type</h2>
-            <p className="text-slate-300 mb-4">这是 TS 中最重要的概念之一，用表格对比：</p>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm mb-4">
-                <thead>
-                  <tr className="border-b border-slate-600">
-                    <th className="text-left py-2 px-3 text-slate-400">特性</th>
-                    <th className="text-left py-2 px-3 text-cyan-400">interface</th>
-                    <th className="text-left py-2 px-3 text-emerald-400">type</th>
-                  </tr>
-                </thead>
-                <tbody className="text-slate-300">
-                  <tr className="border-b border-slate-700">
-                    <td className="py-2 px-3">定义对象形状</td>
-                    <td className="py-2 px-3">✅</td>
-                    <td className="py-2 px-3">✅</td>
-                  </tr>
-                  <tr className="border-b border-slate-700">
-                    <td className="py-2 px-3">可以被类实现（implements）</td>
-                    <td className="py-2 px-3">✅</td>
-                    <td className="py-2 px-3">❌</td>
-                  </tr>
-                  <tr className="border-b border-slate-700">
-                    <td className="py-2 px-3">可以合并（声明合并）</td>
-                    <td className="py-2 px-3">✅</td>
-                    <td className="py-2 px-3">❌</td>
-                  </tr>
-                  <tr className="border-b border-slate-700">
-                    <td className="py-2 px-3">可以描述联合类型</td>
-                    <td className="py-2 px-3">❌</td>
-                    <td className="py-2 px-3">✅</td>
-                  </tr>
-                  <tr className="border-b border-slate-700">
-                    <td className="py-2 px-3">元组</td>
-                    <td className="py-2 px-3">❌</td>
-                    <td className="py-2 px-3">✅</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="bg-red-900/30 border border-red-700 rounded p-4 mb-3">
-              <p className="text-red-400 text-sm font-medium mb-2">❌ 用 interface 的场景</p>
-              <pre className="text-slate-300 text-sm">{`// 不要用 interface 描述联合类型
-interface ID = string | number;  // 错误！
-
-// 不要用 interface 描述元组
-interface Pair = [string, number];  // 错误！`}</pre>
-            </div>
-
-            <div className="bg-emerald-900/30 border border-emerald-700 rounded p-4">
-              <p className="text-emerald-400 text-sm font-medium mb-2">✅ 经验法则</p>
-              <ul className="text-slate-300 text-sm space-y-1">
-                <li>• 定义对象/类的形状 → 用 interface</li>
-                <li>• 需要联合类型、元组、工具类型 → 用 type</li>
-                <li>• 不确定时，先用 interface，需要时再改成 type</li>
-              </ul>
-            </div>
-
-            <div className="mt-4 bg-slate-900/50 border border-slate-600 rounded p-4">
-              <h3 className="text-lg font-semibold text-amber-400 mb-3">练习 3.1</h3>
-              <p className="text-slate-300 text-sm mb-3">判断以下场景应该用 interface 还是 type：</p>
-              <CodeExercise
-                initialCode={`// 场景1: 定义用户对象
-// 用 interface 还是 type？
-
-// 场景2: 定义 ID 类型（可能是字符串或数字）
-// 用 interface 还是 type？
-
-// 场景3: 定义配置对象
-// 用 interface 还是 type？
-
-// 场景4: 定义状态（可以是多个值之一）
-// 用 interface 还是 type？
-
-// 小测验：打印 typeof 查看类型
-console.log("测试一下 typeof");`}
-                expectedOutput={`// 场景1: 定义用户对象 - 用 interface
-interface User {
-  name: string;
-  age: number;
-}
-
-// 场景2: 定义 ID 类型 - 用 type（联合类型）
-type ID = string | number;
-
-// 场景3: 定义配置对象 - 用 interface
-interface Config {
-  theme: string;
-  language: string;
-}
-
-// 场景4: 定义状态 - 用 type（联合类型）
-type Status = "pending" | "active" | "done";
-
-console.log("场景1用 interface，场景2/4用 type，场景3用 interface");`}
-              />
-            </div>
-          </section>
-
           {/* Section 4: 可选属性和只读属性 */}
           <section className="bg-slate-800 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-cyan-400 mb-4">4. 可选属性和只读属性</h2>
@@ -290,22 +187,6 @@ const config1: Config = {
   headers: { "Content-Type": "application/json" }
 };
 
-const config2: Config = {
-  url: "https://api.example.com"
-};
-
-console.log("完整配置:", JSON.stringify(config1));
-console.log("简化配置:", JSON.stringify(config2));`}
-              />
-
-// 测试：提供所有字段
-const config1: Config = {
-  url: "https://api.example.com",
-  timeout: 5000,
-  headers: { "Content-Type": "application/json" }
-};
-
-// 测试：只提供必填字段
 const config2: Config = {
   url: "https://api.example.com"
 };

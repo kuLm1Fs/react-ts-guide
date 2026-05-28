@@ -55,7 +55,10 @@ deployToVercel("user/my-app");`}</pre>
                 列出 Vercel 部署步骤
               </p>
               <CodeExercise
-                initialCode={`const steps = [
+                initialCode={`// const steps = [...];
+
+steps.forEach((s, i) => console.log(i + 1 + ".", s));`}
+                expectedOutput={`const steps = [
   "连接 GitHub 仓库",
   "选择要部署的分支",
   "配置环境变量",
@@ -63,7 +66,6 @@ deployToVercel("user/my-app");`}</pre>
 ];
 
 steps.forEach((s, i) => console.log(i + 1 + ".", s));`}
-                expectedOutput="1. 连接 GitHub 仓库\n2. 选择要部署的分支\n3. 配置环境变量\n4. 点击部署"
               />
             </div>
           </section>
@@ -105,7 +107,11 @@ console.log("local:", getEnvConfig().local.DATABASE_URL);`}</pre>
                 配置生产环境变量
               </p>
               <CodeExercise
-                initialCode={`const env = {
+                initialCode={`// const env = { ... };
+
+console.log("DB:", env.DATABASE_URL);
+console.log("Site:", env.NEXT_PUBLIC_SITE_URL);`}
+                expectedOutput={`const env = {
   "DATABASE_URL": "postgres://prod-db:5432/app",
   "JWT_SECRET": process.env.JWT_SECRET || "default-secret",
   "NEXT_PUBLIC_SITE_URL": "https://myapp.vercel.app"
@@ -113,7 +119,6 @@ console.log("local:", getEnvConfig().local.DATABASE_URL);`}</pre>
 
 console.log("DB:", env.DATABASE_URL);
 console.log("Site:", env.NEXT_PUBLIC_SITE_URL);`}
-                expectedOutput="DB: postgres://prod-db:5432/app\nSite: https://myapp.vercel.app"
               />
             </div>
           </section>
@@ -148,7 +153,11 @@ console.log("减少:", bundle.reduction + "%");`}</pre>
                 计算优化效果
               </p>
               <CodeExercise
-                initialCode={`function calcReduction(original, optimized) {
+                initialCode={`// function calcReduction(original, optimized) { ... }
+
+calcReduction(200000, 120000);
+calcReduction(50000, 40000);`}
+                expectedOutput={`function calcReduction(original, optimized) {
   const reduction = ((original - optimized) / original * 100).toFixed(1);
   console.log("优化效果:", reduction + "%");
   return reduction;
@@ -156,7 +165,6 @@ console.log("减少:", bundle.reduction + "%");`}</pre>
 
 calcReduction(200000, 120000);
 calcReduction(50000, 40000);`}
-                expectedOutput="优化效果: 40.0%\n优化效果: 20.0%"
               />
             </div>
           </section>
@@ -199,7 +207,13 @@ processImage("/original.jpg", {
                 使用 next/image 配置
               </p>
               <CodeExercise
-                initialCode={`const imageConfig = {
+                initialCode={`// const imageConfig = { src, alt, width, height, formats: [...] };
+
+console.log("src:", imageConfig.src);
+console.log("alt:", imageConfig.alt);
+console.log("size:", imageConfig.width + "x" + imageConfig.height);
+console.log("formats:", imageConfig.formats.join(", "));`}
+                expectedOutput={`const imageConfig = {
   src: "/hero.jpg",
   alt: "Hero Image",
   width: 1200,
@@ -211,7 +225,6 @@ console.log("src:", imageConfig.src);
 console.log("alt:", imageConfig.alt);
 console.log("size:", imageConfig.width + "x" + imageConfig.height);
 console.log("formats:", imageConfig.formats.join(", "));`}
-                expectedOutput="src: /hero.jpg\nalt: Hero Image\nsize: 1200x600\nformats: webp, avif"
               />
             </div>
           </section>
@@ -252,7 +265,12 @@ console.log("Page:", getCacheHeader("/"));`}</pre>
                 设置 API 缓存策略
               </p>
               <CodeExercise
-                initialCode={`function getApiCache(endpoint) {
+                initialCode={`// function getApiCache(endpoint) { ... }
+
+console.log("user API:", getApiCache("/api/user"));
+console.log("posts public:", getApiCache("/api/posts/public"));
+console.log("config:", getApiCache("/api/config"));`}
+                expectedOutput={`function getApiCache(endpoint) {
   if (endpoint.includes("private")) {
     return "no-store";
   }
@@ -265,7 +283,6 @@ console.log("Page:", getCacheHeader("/"));`}</pre>
 console.log("user API:", getApiCache("/api/user"));
 console.log("posts public:", getApiCache("/api/posts/public"));
 console.log("config:", getApiCache("/api/config"));`}
-                expectedOutput="user API: no-store\nposts public: public, max-age=60\nconfig: no-cache"
               />
             </div>
           </section>
@@ -304,7 +321,11 @@ checkVitals(metrics);`}</pre>
                 评估页面性能
               </p>
               <CodeExercise
-                initialCode={`function evaluatePagePerformance(metrics) {
+                initialCode={`// function evaluatePagePerformance(metrics) { ... }
+
+const result = evaluatePagePerformance({ LCP: 1.8, FID: 50, CLS: 0.05 });
+result.forEach(r => console.log(r));`}
+                expectedOutput={`function evaluatePagePerformance(metrics) {
   const scores = [];
   scores.push(metrics.LCP <= 2.5 ? "LCP: good" : "LCP: poor");
   scores.push(metrics.FID <= 100 ? "FID: good" : "FID: poor");
@@ -314,7 +335,6 @@ checkVitals(metrics);`}</pre>
 
 const result = evaluatePagePerformance({ LCP: 1.8, FID: 50, CLS: 0.05 });
 result.forEach(r => console.log(r));`}
-                expectedOutput="LCP: good\nFID: good\nCLS: good"
               />
             </div>
           </section>
@@ -337,7 +357,13 @@ result.forEach(r => console.log(r));`}
                 恭喜完成全栈 React 学习路径！
               </p>
               <CodeExercise
-                initialCode={`const course = {
+                initialCode={`// const course = { name: "TypeScript + React 全栈教程", lessons: 18, phases: [...] };
+
+console.log("课程:", course.name);
+console.log("课时:", course.lessons);
+console.log("\\n学习路径:");
+course.phases.forEach((p, i) => console.log(i + 1 + ".", p));`}
+                expectedOutput={`const course = {
   name: "TypeScript + React 全栈教程",
   lessons: 18,
   phases: [
@@ -353,7 +379,6 @@ console.log("课程:", course.name);
 console.log("课时:", course.lessons);
 console.log("\\n学习路径:");
 course.phases.forEach((p, i) => console.log(i + 1 + ".", p));`}
-                expectedOutput={`课程: TypeScript + React 全栈教程\n课时: 18\n\n学习路径:\n1. Phase 1: TypeScript 基础\n2. Phase 2: React 核心概念\n3. Phase 3: Hooks 进阶\n4. Phase 4: React 生态\n5. Phase 5: 全栈实践`}
               />
             </div>
           </section>

@@ -115,8 +115,17 @@ console.log("style:", JSON.stringify(style));`}</pre>
                 下面的 JSX 属性名有什么问题？
               </p>
               <CodeExercise
-                initialCode={`var x="card", y=0; console.log(x); console.log(y);`}
-                expectedOutput={`card\n0`}
+                initialCode={`// 下面的 JSX 属性名有什么问题？
+// 修复它们
+
+var x="card", y=0;
+console.log(x);
+console.log(y);`}
+                expectedOutput={`// 下面的 JSX 属性名有什么问题？
+// 修复它们
+var x="card", y=0;
+console.log(x);
+console.log(y);`}
               />
             </div>
           </section>
@@ -160,7 +169,23 @@ console.log(message);`}</pre>
                 给定用户名和在线状态，显示不同的欢迎消息
               </p>
               <CodeExercise
-                initialCode={`const userName = "李四";
+                initialCode={`// 给定用户名和在线状态
+// const userName = "李四";
+// const isOnline = true;
+
+// 根据状态显示不同消息
+// const statusText = isOnline ? "在线" : "离线";
+// const welcomeMessage = ...
+
+console.log(welcomeMessage);
+
+// 另一个用户
+// const user2Name = "王五";
+// const isOnline2 = false;
+
+console.log(welcome2);`}
+                expectedOutput={`// 给定用户名和在线状态
+const userName = "李四";
 const isOnline = true;
 
 // 根据状态显示不同消息
@@ -175,7 +200,6 @@ const isOnline2 = false;
 
 const welcome2 = "欢迎, " + user2Name + "! 当前状态: " + (isOnline2 ? "在线" : "离线");
 console.log(welcome2);`}
-                expectedOutput="欢迎, 李四! 当前状态: 在线\n欢迎, 王五! 当前状态: 离线"
               />
             </div>
           </section>
@@ -237,6 +261,13 @@ console.log("计数:", displayCount);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 权限检查
+// function checkAccess(isAdmin, isVip) { ... }
+
+// 测试不同组合
+console.log(checkAccess(true, false));
+console.log(checkAccess(false, true));
+console.log(checkAccess(false, false));`}
+                expectedOutput={`// 权限检查
 function checkAccess(isAdmin, isVip) {
   if (isAdmin) return "管理员权限";
   if (isVip) return "VIP 权限";
@@ -247,7 +278,6 @@ function checkAccess(isAdmin, isVip) {
 console.log(checkAccess(true, false));
 console.log(checkAccess(false, true));
 console.log(checkAccess(false, false));`}
-                expectedOutput="管理员权限\nVIP 权限\n普通用户权限"
               />
             </div>
           </section>
@@ -283,7 +313,23 @@ console.log("长度大于2:", longNames);`}</pre>
                 给定一个用户数组，过滤出成年人（age &gt;= 18），然后打印他们的名字
               </p>
               <CodeExercise
-                initialCode={`const users = [
+                initialCode={`// 给定一个用户数组
+// const users = [
+//   { name: "张三", age: 15 },
+//   { name: "李四", age: 25 },
+//   ...
+// ];
+
+// 过滤成年人
+// const adults = users.filter(...);
+
+// 打印名字
+// console.log("成年人:");
+// adults.forEach(...);
+
+console.log("成年人数:", adults.length);`}
+                expectedOutput={`// 给定一个用户数组
+const users = [
   { name: "张三", age: 15 },
   { name: "李四", age: 25 },
   { name: "王五", age: 17 },
@@ -299,7 +345,6 @@ adults.forEach(u => console.log("-", u.name));
 
 // 统计成年人数量
 console.log("成年人数:", adults.length);`}
-                expectedOutput="成年人:\n- 李四\n- 赵六\n成年人数: 2"
               />
             </div>
           </section>
@@ -350,6 +395,14 @@ console.log("次要按钮:", secondaryBtn.backgroundColor);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 根据温度返回颜色
+// function getTempColor(temp) { ... }
+
+console.log("-5°C:", getTempColor(-5));
+console.log("10°C:", getTempColor(10));
+console.log("20°C:", getTempColor(20));
+console.log("30°C:", getTempColor(30));
+console.log("40°C:", getTempColor(40));`}
+                expectedOutput={`// 根据温度返回颜色
 function getTempColor(temp) {
   if (temp < 0) return "blue";
   if (temp < 15) return "cyan";
@@ -363,7 +416,6 @@ console.log("10°C:", getTempColor(10));
 console.log("20°C:", getTempColor(20));
 console.log("30°C:", getTempColor(30));
 console.log("40°C:", getTempColor(40));`}
-                expectedOutput="-5°C: blue\n10°C: cyan\n20°C: green\n30°C: orange\n40°C: red"
               />
             </div>
           </section>
@@ -394,6 +446,19 @@ console.log("40°C:", getTempColor(40));`}
 ];
 
 // 渲染用户卡片
+// function renderUserCard(user) { ... }
+
+console.log("=== 用户卡片列表 ===");
+users.forEach(user => {
+  console.log(renderUserCard(user));
+});`}
+                expectedOutput={`const users = [
+  { id: 1, name: "张三", age: 25, isOnline: true },
+  { id: 2, name: "李四", age: 17, isOnline: false },
+  { id: 3, name: "王五", age: 30, isOnline: true }
+];
+
+// 渲染用户卡片
 function renderUserCard(user) {
   const status = user.isOnline ? "在线" : "离线";
   const ageLabel = user.age >= 18 ? "成年人" : "未成年";
@@ -405,7 +470,6 @@ console.log("=== 用户卡片列表 ===");
 users.forEach(user => {
   console.log(renderUserCard(user));
 });`}
-                expectedOutput="=== 用户卡片列表 ===\n张三 | 成年人 | 在线\n李四 | 未成年 | 离线\n王五 | 成年人 | 在线"
               />
             </div>
           </section>

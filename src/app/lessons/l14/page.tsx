@@ -60,7 +60,14 @@ fetch("/api/users")
                 模拟 GET 请求获取用户列表
               </p>
               <CodeExercise
-                initialCode={`function fetch(url) {
+                initialCode={`// function fetch(url) { ... }
+// fetch("/api/users").then(res => { ... });
+
+fetch("/api/users").then(res => {
+  console.log("获取到", res.data.length, "个用户");
+  console.log("第一个:", res.data[0].name);
+});`}
+                expectedOutput={`function fetch(url) {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve({ data: [{ id: 1, name: "张三" }, { id: 2, name: "李四" }] });
@@ -72,7 +79,6 @@ fetch("/api/users").then(res => {
   console.log("获取到", res.data.length, "个用户");
   console.log("第一个:", res.data[0].name);
 });`}
-                expectedOutput="获取到 2 个用户\n第一个: 张三"
               />
             </div>
           </section>
@@ -110,7 +116,12 @@ main();`}</pre>
                 用 async/await 获取商品信息
               </p>
               <CodeExercise
-                initialCode={`function delay(ms) {
+                initialCode={`// function delay(ms) { ... }
+// async function getProduct(id) { ... }
+// async function main() { ... }
+
+main();`}
+                expectedOutput={`function delay(ms) {
   return new Promise(r => setTimeout(r, ms));
 }
 
@@ -126,7 +137,6 @@ async function main() {
 }
 
 main();`}
-                expectedOutput="商品: iPhone 15\n价格: 6999"
               />
             </div>
           </section>
@@ -167,7 +177,11 @@ request("/api/users", options);`}</pre>
                 模拟 POST 请求创建用户
               </p>
               <CodeExercise
-                initialCode={`function createUser(userData) {
+                initialCode={`// function createUser(userData) { ... }
+
+const result = createUser({ name: "张三", email: "zhang@example.com" });
+console.log("result:", JSON.stringify(result));`}
+                expectedOutput={`function createUser(userData) {
   console.log("POST /api/users");
   console.log("Content-Type: application/json");
   console.log("body:", JSON.stringify(userData));
@@ -176,7 +190,6 @@ request("/api/users", options);`}</pre>
 
 const result = createUser({ name: "张三", email: "zhang@example.com" });
 console.log("result:", JSON.stringify(result));`}
-                expectedOutput={`POST /api/users\nContent-Type: application/json\nbody: {"name":"张三","email":"zhang@example.com"}\nresult: {"success":true,"id":1}`}
               />
             </div>
           </section>
@@ -213,7 +226,11 @@ fetchData();`}</pre>
                 模拟加载用户头像
               </p>
               <CodeExercise
-                initialCode={`let state = { loading: true, avatar: null };
+                initialCode={`// let state = { loading: true, avatar: null };
+// setTimeout(() => { ... }, 100);
+
+console.log("loading:", state.loading);`}
+                expectedOutput={`let state = { loading: true, avatar: null };
 
 console.log("loading:", state.loading);
 
@@ -223,7 +240,6 @@ setTimeout(() => {
   console.log("loading:", state.loading);
   console.log("avatar:", state.avatar);
 }, 100);`}
-                expectedOutput="loading: true\nloading: false\navatar: https://example.com/avatar.png"
               />
             </div>
           </section>
@@ -259,7 +275,12 @@ fetchWithError("/api/error");`}</pre>
                 处理 404 和 500 错误
               </p>
               <CodeExercise
-                initialCode={`function handleResponse(status) {
+                initialCode={`// function handleResponse(status) { ... }
+
+handleResponse(200);
+handleResponse(404);
+handleResponse(500);`}
+                expectedOutput={`function handleResponse(status) {
   if (status === 404) {
     console.log("错误: 资源不存在");
   } else if (status === 500) {
@@ -272,7 +293,6 @@ fetchWithError("/api/error");`}</pre>
 handleResponse(200);
 handleResponse(404);
 handleResponse(500);`}
-                expectedOutput="成功: 200\n错误: 资源不存在\n错误: 服务器错误"
               />
             </div>
           </section>
@@ -313,7 +333,13 @@ main();`}</pre>
                 实现商品详情缓存
               </p>
               <CodeExercise
-                initialCode={`const productCache = new Map();
+                initialCode={`// function getProduct(id) { ... }
+
+getProduct(1);
+getProduct(1);
+getProduct(2);
+getProduct(1);`}
+                expectedOutput={`const productCache = new Map();
 
 function getProduct(id) {
   if (productCache.has(id)) {
@@ -330,7 +356,6 @@ getProduct(1);
 getProduct(1);
 getProduct(2);
 getProduct(1);`}
-                expectedOutput="获取产品: 1\n缓存命中: 1\n获取产品: 2\n缓存命中: 1"
               />
             </div>
           </section>
@@ -353,7 +378,11 @@ getProduct(1);`}
                 实现完整的数据获取流程：loading → data/error
               </p>
               <CodeExercise
-                initialCode={`async function fetchUser(id, shouldFail) {
+                initialCode={`// async function fetchUser(id, shouldFail) { ... }
+
+fetchUser(1, false);
+fetchUser(2, true);`}
+                expectedOutput={`async function fetchUser(id, shouldFail) {
   console.log("loading: true");
   await new Promise(r => setTimeout(r, 50));
 
@@ -369,7 +398,6 @@ getProduct(1);`}
 
 fetchUser(1, false);
 fetchUser(2, true);`}
-                expectedOutput={`loading: true\nloading: false\ndata: {"id":1,"name":"张三","age":25}\nloading: true\nerror: 请求失败`}
               />
             </div>
           </section>

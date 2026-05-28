@@ -52,6 +52,18 @@ console.log("需要简化:", UserContext, CartContext, ProductContext);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 分散的状态
+// let userState = { name: "张三" };
+// let cartState = { items: [], total: 0 };
+// let uiState = { theme: "dark" };
+
+// updateUser("李四");
+// addToCart({ id: 1, name: "商品A" });
+// setTheme("light");
+
+console.log("user:", userState.name);
+console.log("cart:", cartState.items.length);
+console.log("theme:", uiState.theme);`}
+                expectedOutput={`// 分散的状态
 let userState = { name: "张三" };
 let cartState = { items: [], total: 0 };
 let uiState = { theme: "dark" };
@@ -67,7 +79,6 @@ setTheme("light");
 console.log("user:", userState.name);
 console.log("cart:", cartState.items.length);
 console.log("theme:", uiState.theme);`}
-                expectedOutput="user: 李四\ncart: 1\ntheme: light"
               />
             </div>
           </section>
@@ -120,7 +131,12 @@ console.log("count:", getState().count);`}</pre>
                 创建一个简单的 Zustand store
               </p>
               <CodeExercise
-                initialCode={`function createStore(init) {
+                initialCode={`// function createStore(init) { ... }
+
+const store = createStore({ count: 0, name: "计数器" });
+console.log(store.getState().count);
+console.log(store.getState().name);`}
+                expectedOutput={`function createStore(init) {
   let state = init;
   const subs = [];
   return {
@@ -133,7 +149,6 @@ console.log("count:", getState().count);`}</pre>
 const store = createStore({ count: 0, name: "计数器" });
 console.log(store.getState().count);
 console.log(store.getState().name);`}
-                expectedOutput="0\n计数器"
               />
             </div>
           </section>
@@ -188,6 +203,18 @@ console.log("初始:", count, name);`}</pre>
   cart: { items: 3 }
 };
 
+// function useSelector(selector) { ... }
+
+// const userName = useSelector(s => s.user.name);
+// const cartCount = useSelector(s => s.cart.items);
+
+console.log("name:", userName);
+console.log("items:", cartCount);`}
+                expectedOutput={`const store = {
+  user: { name: "张三", email: "zhang@example.com" },
+  cart: { items: 3 }
+};
+
 function useSelector(selector) {
   return selector(store);
 }
@@ -197,7 +224,6 @@ const cartCount = useSelector(s => s.cart.items);
 
 console.log("name:", userName);
 console.log("items:", cartCount);`}
-                expectedOutput="name: 张三\nitems: 3"
               />
             </div>
           </section>
@@ -239,7 +265,13 @@ console.log("操作后:", counterStore.getState().count);`}</pre>
                 创建 todo store，支持 add 和 remove
               </p>
               <CodeExercise
-                initialCode={`const todoStore = {
+                initialCode={`// const todoStore = { todos: [], add(text) { ... }, remove(id) { ... } };
+
+todoStore.add("学习 React");
+todoStore.add("写代码");
+todoStore.remove(todoStore.todos[0].id);
+console.log("剩余:", todoStore.todos.length);`}
+                expectedOutput={`const todoStore = {
   todos: [],
   add(text) {
     this.todos.push({ id: Date.now(), text, done: false });
@@ -255,7 +287,6 @@ todoStore.add("学习 React");
 todoStore.add("写代码");
 todoStore.remove(todoStore.todos[0].id);
 console.log("剩余:", todoStore.todos.length);`}
-                expectedOutput="添加: 学习 React\n添加: 写代码\n删除 id: 1\n剩余: 1"
               />
             </div>
           </section>
@@ -290,7 +321,13 @@ store.setState(s => ({ count: s.count + 1 }));`}</pre>
                 创建 persist 中间件，保存状态到 localStorage
               </p>
               <CodeExercise
-                initialCode={`let storage = {};
+                initialCode={`// let storage = {};
+// function persist(store, key) { ... }
+
+const store = persist({ getState: () => ({ name: "张三" }), setState: (u) => {} }, "user");
+store.setState({ name: "李四" });
+console.log("storage:", JSON.stringify(storage));`}
+                expectedOutput={`let storage = {};
 
 const persist = (store, key) => {
   const originalSetState = store.setState.bind(store);
@@ -305,7 +342,6 @@ const persist = (store, key) => {
 const store = persist({ getState: () => ({ name: "张三" }), setState: (u) => {} }, "user");
 store.setState({ name: "李四" });
 console.log("storage:", JSON.stringify(storage));`}
-                expectedOutput={`持久化: user\nstorage: {"name":"李四"}`}
               />
             </div>
           </section>
@@ -357,7 +393,11 @@ console.log("storage:", JSON.stringify(storage));`}
                 选择合适方案：主题 vs 电商购物车
               </p>
               <CodeExercise
-                initialCode={`function recommend(name, tool) {
+                initialCode={`// function recommend(name, tool) { ... }
+
+// 主题：简单全局配置
+// 购物车：复杂状态、频繁更新`}
+                expectedOutput={`function recommend(name, tool) {
   console.log(name + ":", tool);
 }
 
@@ -366,7 +406,6 @@ recommend("主题切换", "Context");
 
 // 购物车：复杂状态、频繁更新
 recommend("购物车", "Zustand");`}
-                expectedOutput="主题切换: Context\n购物车: Zustand"
               />
             </div>
           </section>
@@ -389,7 +428,12 @@ recommend("购物车", "Zustand");`}
                 实现一个带日志的购物车 store
               </p>
               <CodeExercise
-                initialCode={`function createCartStore() {
+                initialCode={`// function createCartStore() { ... }
+
+// cart.dispatch({ type: "ADD_ITEM", payload: { name: "iPhone", price: 6999 } });
+// cart.dispatch({ type: "ADD_ITEM", payload: { name: "AirPods", price: 1999 } });
+console.log("total:", cart.getState().total);`}
+                expectedOutput={`function createCartStore() {
   let state = { items: [], total: 0 };
   const listeners = [];
 
@@ -413,7 +457,6 @@ const cart = createCartStore();
 cart.dispatch({ type: "ADD_ITEM", payload: { name: "iPhone", price: 6999 } });
 cart.dispatch({ type: "ADD_ITEM", payload: { name: "AirPods", price: 1999 } });
 console.log("total:", cart.getState().total);`}
-                expectedOutput="action: ADD_ITEM\naction: ADD_ITEM\ntotal: 8998"
               />
             </div>
           </section>

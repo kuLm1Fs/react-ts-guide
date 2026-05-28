@@ -55,6 +55,17 @@ console.log("更新后:", count);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟计数器
+// let count = 0;
+
+console.log("初始计数:", count);
+
+// 点击一次 +1
+// count = ...
+console.log("+1 后:", count);
+
+// 再 +1
+console.log("再 +1 后:", count);`}
+                expectedOutput={`// 模拟计数器
 let count = 0;
 
 console.log("初始计数:", count);
@@ -66,7 +77,6 @@ console.log("+1 后:", count);
 // 再 +1
 count = count + 1;
 console.log("再 +1 后:", count);`}
-                expectedOutput="初始计数: 0\n+1 后: 1\n再 +1 后: 2"
               />
             </div>
           </section>
@@ -104,6 +114,20 @@ console.log("更新后:", getCount());`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟两个 state
+// function useState(initial) { ... }
+
+// const [getName, setName] = useState("张三");
+// const [getAge, setAge] = useState(25);
+
+console.log("name:", getName());
+console.log("age:", getAge());
+
+// setName("李四");
+// setAge(30);
+
+console.log("更新后 name:", getName());
+console.log("更新后 age:", getAge());`}
+                expectedOutput={`// 模拟两个 state
 function useState(initial) {
   let val = initial;
   return [() => val, (v) => { val = v; }];
@@ -120,7 +144,6 @@ setAge(30);
 
 console.log("更新后 name:", getName());
 console.log("更新后 age:", getAge());`}
-                expectedOutput="name: 张三\nage: 25\n更新后 name: 李四\n更新后 age: 30"
               />
             </div>
           </section>
@@ -154,6 +177,15 @@ handleClick();`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 事件处理函数
+// function handleClick() { ... }
+// function handleChange(e) { ... }
+// function handleSubmit() { ... }
+
+// 模拟触发
+handleClick();
+handleChange("用户输入的内容");
+handleSubmit();`}
+                expectedOutput={`// 事件处理函数
 function handleClick() { console.log("点击事件触发"); }
 function handleChange(e) { console.log("输入:", e); }
 function handleSubmit() { console.log("表单提交"); }
@@ -162,7 +194,6 @@ function handleSubmit() { console.log("表单提交"); }
 handleClick();
 handleChange("用户输入的内容");
 handleSubmit();`}
-                expectedOutput="点击事件触发\n输入: 用户输入的内容\n表单提交"
               />
             </div>
           </section>
@@ -195,6 +226,10 @@ handleClick({
               </p>
               <CodeExercise
                 initialCode={`// 键盘事件
+// function handleKeyDown(event) { ... }
+
+handleKeyDown({ key: "Enter", code: "Enter" });`}
+                expectedOutput={`// 键盘事件
 function handleKeyDown(event) {
   console.log("key:", event.key);
   console.log("code:", event.code);
@@ -202,7 +237,6 @@ function handleKeyDown(event) {
 
 // 模拟按下 Enter
 handleKeyDown({ key: "Enter", code: "Enter" });`}
-                expectedOutput="key: Enter\ncode: Enter"
               />
             </div>
           </section>
@@ -236,6 +270,18 @@ console.log("递增后:", count);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 简单计数器
+// let count = 0;
+// const setCount = (v) => { count = v; };
+
+console.log("初始:", count);
+
+// +1
+// setCount(count + 1);
+console.log("+1 后:", count);
+
+// -1
+console.log("-1 后:", count);`}
+                expectedOutput={`// 简单计数器
 let count = 0;
 const setCount = (v) => { count = v; };
 
@@ -248,7 +294,6 @@ console.log("+1 后:", count);
 // -1
 setCount(count - 1);
 console.log("-1 后:", count);`}
-                expectedOutput="初始: 0\n+1 后: 1\n-1 后: 0"
               />
             </div>
           </section>
@@ -282,6 +327,17 @@ console.log("最终值:", inputValue);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟表单
+// let username = "";
+// let password = "";
+// function handleUsernameChange(value) { ... }
+// function handlePasswordChange(value) { ... }
+
+// 模拟输入
+handleUsernameChange("admin");
+handlePasswordChange("123456");
+
+console.log("登录信息:", username, password);`}
+                expectedOutput={`// 模拟表单
 let username = "";
 let password = "";
 
@@ -300,7 +356,6 @@ handleUsernameChange("admin");
 handlePasswordChange("123456");
 
 console.log("登录信息:", username, password);`}
-                expectedOutput="username: admin\npassword: 123456\n登录信息: admin 123456"
               />
             </div>
           </section>
@@ -337,6 +392,15 @@ ChildB();`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 父子通信
+// let parentCount = 0;
+// function Child(props) { ... }
+// function Parent() { ... }
+
+// 模拟点击
+const handleClick = () => Parent();
+Child({ onClick: handleClick });
+Child({ onClick: handleClick });`}
+                expectedOutput={`// 父子通信
 let parentCount = 0;
 
 function Child(props) {
@@ -353,7 +417,6 @@ function Parent() {
 const handleClick = () => Parent();
 Child({ onClick: handleClick });
 Child({ onClick: handleClick });`}
-                expectedOutput="Child 接收 onClick\nParent count: 1\nChild 接收 onClick\nParent count: 2"
               />
             </div>
           </section>
@@ -378,6 +441,12 @@ Child({ onClick: handleClick });`}
               </p>
               <CodeExercise
                 initialCode={`// 模拟计数器组件
+// let count = 0;
+// function Counter() { ... }
+// function handleClick() { ... }
+
+Counter();`}
+                expectedOutput={`// 模拟计数器组件
 let count = 0;
 
 function Counter() {
@@ -393,7 +462,6 @@ function Counter() {
 }
 
 Counter();`}
-                expectedOutput="计数: 1\n计数: 2\n计数: 3"
               />
             </div>
           </section>

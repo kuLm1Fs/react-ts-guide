@@ -60,6 +60,18 @@ console.log("3 * 5 =", multiply(3, 5));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 计算矩形面积
+// function rectangleArea(width, height) { ... }
+
+// 计算三角形面积
+// function triangleArea(base, height) { ... }
+
+// 测试
+const rect = rectangleArea(5, 3);
+const tri = triangleArea(6, 4);
+
+console.log("矩形面积:", rect);
+console.log("三角形面积:", tri);`}
+                expectedOutput={`// 计算矩形面积
 function rectangleArea(width, height) {
   return width * height;
 }
@@ -75,7 +87,6 @@ const tri = triangleArea(6, 4);
 
 console.log("矩形面积:", rect);
 console.log("三角形面积:", tri);`}
-                expectedOutput="矩形面积: 15\n三角形面积: 12"
               />
             </div>
           </section>
@@ -209,7 +220,20 @@ console.log(calculate(10, 3, subtract)); // 7`}</pre>
                 创建一个计算器工厂，可以生成加法、减法、乘法函数
               </p>
               <CodeExercise
-                initialCode={`// 计算器工厂
+                initialCode={`// 创建一个计算器工厂
+// function createCalculator(op) { ... }
+// 返回一个函数，根据 op 执行 + - *
+
+const add = createCalculator("add");
+const subtract = createCalculator("subtract");
+const multiply = createCalculator("multiply");
+
+console.log("10 + 5 =", add(10, 5));
+console.log("10 - 5 =", subtract(10, 5));
+console.log("10 * 5 =", multiply(10, 5));`}
+                expectedOutput={`// 创建一个计算器工厂
+// function createCalculator(op) { ... }
+// 返回一个函数，根据 op 执行 + - *
 function createCalculator(op) {
   return function(a, b) {
     if (op === "add") return a + b;
@@ -225,7 +249,6 @@ const multiply = createCalculator("multiply");
 console.log("10 + 5 =", add(10, 5));
 console.log("10 - 5 =", subtract(10, 5));
 console.log("10 * 5 =", multiply(10, 5));`}
-                expectedOutput="10 + 5 = 15\n10 - 5 = 5\n10 * 5 = 50"
               />
             </div>
           </section>
@@ -275,7 +298,18 @@ try {
                 写一个 validate 函数：如果值小于 0 就抛出错误，否则返回 "有效"
               </p>
               <CodeExercise
-                initialCode={`function validate(value) {
+                initialCode={`// 写一个 validate 函数
+// 如果值小于 0 就抛出错误，否则返回 "有效"
+
+console.log(validate(10));
+try {
+  console.log(validate(-1));
+} catch (e) {
+  console.log("捕获到错误:", e.message);
+}`}
+                expectedOutput={`// 写一个 validate 函数
+// 如果值小于 0 就抛出错误，否则返回 "有效"
+function validate(value) {
   if (value < 0) {
     throw new Error("值不能为负数");
   }
@@ -283,13 +317,12 @@ try {
 }
 
 // 测试
-console.log(validate(10));  // 有效
+console.log(validate(10));
 try {
-  console.log(validate(-1));  // 应该抛出错误
+  console.log(validate(-1));
 } catch (e) {
   console.log("捕获到错误:", e.message);
 }`}
-                expectedOutput="有效\n捕获到错误: 值不能为负数"
               />
             </div>
           </section>
@@ -326,7 +359,19 @@ console.log("大于2的数加倍后求和:", result);`}</pre>
                 给定一个水果数组，用 filter 找出包含"果"字的水果，用 map 把它们变成大写
               </p>
               <CodeExercise
-                initialCode={`const fruits = ["苹果", "香蕉", "葡萄", "草莓", "橙子"];
+                initialCode={`// 给定一个水果数组
+// const fruits = ["苹果", "香蕉", "葡萄", "草莓", "橙子"];
+
+// 找出包含"果"的水果
+// const withGuo = fruits.filter(...);
+
+// 变成大写
+// const upper = withGuo.map(...);
+
+console.log("包含果:", withGuo);
+console.log("大写:", upper);`}
+                expectedOutput={`// 给定一个水果数组
+const fruits = ["苹果", "香蕉", "葡萄", "草莓", "橙子"];
 
 // 找出包含"果"的水果
 const withGuo = fruits.filter(f => f.includes("果"));
@@ -336,7 +381,6 @@ const upper = withGuo.map(f => f.toUpperCase());
 
 console.log("包含果:", withGuo);
 console.log("大写:", upper);`}
-                expectedOutput={`包含果: ["苹果","草莓","橙子"]\n大写: ["苹果","草莓","橙子"]`}
               />
             </div>
           </section>
@@ -365,6 +409,21 @@ console.log("大写:", upper);`}
                 initialCode={`const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 // 过滤偶数
+// const filterEven = arr => ...
+
+// 所有元素平方
+// const squareAll = arr => ...
+
+// 先过滤偶数再平方再求和
+// const chainProcess = arr => ...
+
+// 测试
+console.log("偶数:", filterEven(numbers));
+console.log("平方:", squareAll(numbers));
+console.log("链式处理结果:", chainProcess(numbers));`}
+                expectedOutput={`const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// 过滤偶数
 const filterEven = arr => arr.filter(n => n % 2 === 0);
 
 // 所有元素平方
@@ -381,7 +440,6 @@ const chainProcess = arr => {
 console.log("偶数:", filterEven(numbers));
 console.log("平方:", squareAll(numbers));
 console.log("链式处理结果:", chainProcess(numbers));`}
-                expectedOutput={`偶数: [2,4,6,8,10]\n平方: [1,4,9,16,25,36,49,64,81,100]\n链式处理结果: 220`}
               />
             </div>
           </section>

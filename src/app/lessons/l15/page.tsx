@@ -46,7 +46,10 @@ console.log("Next.js 是一个全栈 React 框架");`}</pre>
                 识别 Next.js 的核心功能
               </p>
               <CodeExercise
-                initialCode={`const features = [
+                initialCode={`// const features = [...];
+
+features.forEach((f, i) => console.log(i + 1 + ".", f));`}
+                expectedOutput={`const features = [
   "App Router",
   "Server Components",
   "API Routes",
@@ -54,7 +57,6 @@ console.log("Next.js 是一个全栈 React 框架");`}</pre>
 ];
 
 features.forEach((f, i) => console.log(i + 1 + ".", f));`}
-                expectedOutput="1. App Router\n2. Server Components\n3. API Routes\n4. 自动代码分割"
               />
             </div>
           </section>
@@ -88,13 +90,16 @@ Object.entries(routes).forEach(([file, path]) => {
                 创建 /users 和 /users/:id 路由的文件路径
               </p>
               <CodeExercise
-                initialCode={`function getRoutePath(path) {
+                initialCode={`// function getRoutePath(path) { ... }
+
+console.log(getRoutePath("/users"));
+console.log(getRoutePath("/users/123"));`}
+                expectedOutput={`function getRoutePath(path) {
   return \`src/app\${path}/page.tsx\`;
 }
 
 console.log(getRoutePath("/users"));
 console.log(getRoutePath("/users/123"));`}
-                expectedOutput="src/app/users/page.tsx\nsrc/app/users/123/page.tsx"
               />
             </div>
           </section>
@@ -129,7 +134,11 @@ console.log("服务端组件:", ServerComponent());`}</pre>
                 模拟服务端获取文章列表
               </p>
               <CodeExercise
-                initialCode={`async function getPosts() {
+                initialCode={`// async function getPosts() { ... }
+
+console.log("文章数:", posts.length);
+posts.forEach(p => console.log("-", p.title));`}
+                expectedOutput={`async function getPosts() {
   // 模拟数据库查询
   return [
     { id: 1, title: "Next.js 入门", author: "张三" },
@@ -144,7 +153,6 @@ const posts = [
 
 console.log("文章数:", posts.length);
 posts.forEach(p => console.log("-", p.title));`}
-                expectedOutput="文章数: 2\n- Next.js 入门\n- React Hooks 指南"
               />
             </div>
           </section>
@@ -183,7 +191,10 @@ console.log("ClientComponent result:", ClientComponent());`}</pre>
                 模拟计数器客户端组件
               </p>
               <CodeExercise
-                initialCode={`function Counter() {
+                initialCode={`// function Counter() { ... }
+
+console.log("count:", Counter());`}
+                expectedOutput={`function Counter() {
   let count = 0;
 
   function increment() {
@@ -198,7 +209,6 @@ console.log("ClientComponent result:", ClientComponent());`}</pre>
 }
 
 console.log("count:", Counter());`}
-                expectedOutput="count: 3"
               />
             </div>
           </section>
@@ -238,7 +248,12 @@ console.log(JSON.stringify(apiHandler("POST", "/api/users", { name: "李四" }))
                 实现 GET /api/products 接口
               </p>
               <CodeExercise
-                initialCode={`function handleRequest(method, path) {
+                initialCode={`// function handleRequest(method, path) { ... }
+
+const res = handleRequest("GET", "/api/products");
+console.log("status:", res.status);
+console.log("products:", JSON.stringify(res.data));`}
+                expectedOutput={`function handleRequest(method, path) {
   if (method === "GET" && path === "/api/products") {
     return {
       status: 200,
@@ -251,7 +266,6 @@ console.log(JSON.stringify(apiHandler("POST", "/api/users", { name: "李四" }))
 const res = handleRequest("GET", "/api/products");
 console.log("status:", res.status);
 console.log("products:", JSON.stringify(res.data));`}
-                expectedOutput={`status: 200\nproducts: [{"id":1,"name":"iPhone","price":6999}]`}
               />
             </div>
           </section>
@@ -283,13 +297,16 @@ console.log("Layout 渲染:", Page());`}</pre>
                 创建带导航栏的布局
               </p>
               <CodeExercise
-                initialCode={`function createLayout(page) {
+                initialCode={`// function createLayout(page) { ... }
+
+console.log(createLayout("<HomePage />"));
+console.log(createLayout("<AboutPage />"));`}
+                expectedOutput={`function createLayout(page) {
   return "<Nav />" + page + "<Footer />";
 }
 
 console.log(createLayout("<HomePage />"));
 console.log(createLayout("<AboutPage />"));`}
-                expectedOutput="<Nav /><HomePage /><Footer />\n<Nav /><AboutPage /><Footer />"
               />
             </div>
           </section>
@@ -326,7 +343,12 @@ console.log("公开变量:", env.NEXT_PUBLIC_PUBLIC_VAR);`}</pre>
                 读取环境变量配置
               </p>
               <CodeExercise
-                initialCode={`const envVars = {
+                initialCode={`// const envVars = { ... };
+
+console.log("API URL:", envVars.NEXT_PUBLIC_API_URL);
+console.log("DB:", envVars.DATABASE_URL);
+console.log("Secret:", envVars.JWT_SECRET);`}
+                expectedOutput={`const envVars = {
   "NEXT_PUBLIC_API_URL": "https://api.example.com",
   "DATABASE_URL": "postgres://user:pass@localhost/db",
   "JWT_SECRET": "my-secret-key"
@@ -335,7 +357,6 @@ console.log("公开变量:", env.NEXT_PUBLIC_PUBLIC_VAR);`}</pre>
 console.log("API URL:", envVars.NEXT_PUBLIC_API_URL);
 console.log("DB:", envVars.DATABASE_URL);
 console.log("Secret:", envVars.JWT_SECRET);`}
-                expectedOutput="API URL: https://api.example.com\nDB: postgres://user:pass@localhost/db\nSecret: my-secret-key"
               />
             </div>
           </section>
@@ -359,7 +380,12 @@ console.log("Secret:", envVars.JWT_SECRET);`}
                 创建一个完整的页面 + API 结构
               </p>
               <CodeExercise
-                initialCode={`// 模拟 Next.js 结构
+                initialCode={`// const nextjsApp = { pages: { ... } };
+
+Object.entries(nextjsApp.pages).forEach(([path, desc]) => {
+  console.log(path + ":", desc);
+});`}
+                expectedOutput={`// 模拟 Next.js 结构
 const nextjsApp = {
   pages: {
     "page.tsx": "首页",
@@ -371,7 +397,6 @@ const nextjsApp = {
 Object.entries(nextjsApp.pages).forEach(([path, desc]) => {
   console.log(path + ":", desc);
 });`}
-                expectedOutput="page.tsx: 首页\nabout/page.tsx: 关于页\napi/users/route.ts: 用户 API"
               />
             </div>
           </section>

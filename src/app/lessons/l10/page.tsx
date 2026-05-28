@@ -49,6 +49,11 @@ console.log("Context:", Context.data);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟 ThemeContext
+// const ThemeContext = { ... };
+
+console.log("theme:", ThemeContext.theme);
+console.log("color:", ThemeContext.primaryColor);`}
+                expectedOutput={`// 模拟 ThemeContext
 const ThemeContext = {
   theme: "dark",
   primaryColor: "#007bff",
@@ -57,7 +62,6 @@ const ThemeContext = {
 
 console.log("theme:", ThemeContext.theme);
 console.log("color:", ThemeContext.primaryColor);`}
-                expectedOutput="theme: dark\ncolor: #007bff"
               />
             </div>
           </section>
@@ -92,6 +96,11 @@ console.log("Context created with default");`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// UserContext
+// function createContext(defaultValue) { ... }
+
+console.log("默认用户:", UserContext.defaultValue.name);
+console.log("默认级别:", UserContext.defaultValue.level);`}
+                expectedOutput={`// UserContext
 function createContext(defaultValue) {
   return { defaultValue };
 }
@@ -100,7 +109,6 @@ const UserContext = createContext({ name: "游客", level: 0 });
 
 console.log("默认用户:", UserContext.defaultValue.name);
 console.log("默认级别:", UserContext.defaultValue.level);`}
-                expectedOutput="默认用户: 游客\n默认级别: 0"
               />
             </div>
           </section>
@@ -134,6 +142,12 @@ Provider({
               </p>
               <CodeExercise
                 initialCode={`// 语言 Provider
+// let currentLang = { lang: "en", dir: "ltr" };
+// function LanguageProvider(props) { ... }
+
+LanguageProvider({ lang: "zh", dir: "ltr" });
+LanguageProvider({ lang: "ar", dir: "rtl" });`}
+                expectedOutput={`// 语言 Provider
 let currentLang = { lang: "en", dir: "ltr" };
 
 function LanguageProvider(props) {
@@ -143,7 +157,6 @@ function LanguageProvider(props) {
 
 LanguageProvider({ lang: "zh", dir: "ltr" });
 LanguageProvider({ lang: "ar", dir: "rtl" });`}
-                expectedOutput="Provider 设置: zh ltr\nProvider 设置: ar rtl"
               />
             </div>
           </section>
@@ -176,6 +189,18 @@ console.log("获取 color:", theme.color);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// User Context
+// let globalUser = { name: "未登录", id: null };
+// function useUser() { ... }
+
+// 组件中获取
+const user = useUser();
+console.log("用户:", user.name);
+
+// 登录后
+globalUser = { name: "张三", id: 1 };
+const user2 = useUser();
+console.log("登录后:", user2.name);`}
+                expectedOutput={`// User Context
 let globalUser = { name: "未登录", id: null };
 
 function useUser() {
@@ -190,7 +215,6 @@ console.log("用户:", user.name);
 globalUser = { name: "张三", id: 1 };
 const user2 = useUser();
 console.log("登录后:", user2.name);`}
-                expectedOutput="用户: 未登录\n登录后: 张三"
               />
             </div>
           </section>
@@ -226,6 +250,14 @@ console.log("分离后更易维护");`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 电商 Context 拆分
+// const AuthContext = { name: "auth" };
+// const CartContext = { name: "cart" };
+// const ProductContext = { name: "product" };
+
+console.log("Auth:", AuthContext.name);
+console.log("Cart:", CartContext.name);
+console.log("Product:", ProductContext.name);`}
+                expectedOutput={`// 电商 Context 拆分
 const AuthContext = { name: "auth" };
 const CartContext = { name: "cart" };
 const ProductContext = { name: "product" };
@@ -233,7 +265,6 @@ const ProductContext = { name: "product" };
 console.log("Auth:", AuthContext.name);
 console.log("Cart:", CartContext.name);
 console.log("Product:", ProductContext.name);`}
-                expectedOutput="Auth: auth\nCart: cart\nProduct: product"
               />
             </div>
           </section>
@@ -281,6 +312,14 @@ console.log("name:", store.getState("name"));`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 简单 Store
+// const store = { ... };
+
+store.set("user", { name: "李四" });
+store.set("role", "admin");
+
+console.log(store.get("user").name);
+console.log(store.get("role"));`}
+                expectedOutput={`// 简单 Store
 const store = {
   data: {},
   get(key) { return this.data[key]; },
@@ -292,7 +331,6 @@ store.set("role", "admin");
 
 console.log(store.get("user").name);
 console.log(store.get("role"));`}
-                expectedOutput="李四\nadmin"
               />
             </div>
           </section>
@@ -340,6 +378,20 @@ console.log(store.get("role"));`}
               </p>
               <CodeExercise
                 initialCode={`// 场景判断
+// function scenario(name, use) { ... }
+
+// 1. 用户名从 App -> Header -> Logo
+scenario("Logo 组件", "Props");
+
+// 2. 主题从 App -> 所有页面
+scenario("主题设置", "Context");
+
+// 3. 购物车数量从 Header -> CartIcon
+scenario("购物车图标", "Props");
+
+// 4. 语言从 App -> 所有组件
+scenario("语言配置", "Context");`}
+                expectedOutput={`// 场景判断
 function scenario(name, use) {
   console.log(name + ":", use);
 }
@@ -355,7 +407,6 @@ scenario("购物车图标", "Props");
 
 // 4. 语言从 App -> 所有组件
 scenario("语言配置", "Context");`}
-                expectedOutput={`Logo 组件: Props\n主题设置: Context\n购物车图标: Props\n语言配置: Context`}
               />
             </div>
           </section>
@@ -379,6 +430,16 @@ scenario("语言配置", "Context");`}
               </p>
               <CodeExercise
                 initialCode={`// ThemeProvider
+// let theme = { mode: "light", colors: { bg: "#fff", text: "#000" } };
+// function ThemeProvider(mode) { ... }
+
+// 测试
+ThemeProvider("light");
+console.log("背景色:", theme.colors.bg);
+
+ThemeProvider("dark");
+console.log("背景色:", theme.colors.bg);`}
+                expectedOutput={`// ThemeProvider
 let theme = { mode: "light", colors: { bg: "#fff", text: "#000" } };
 
 function ThemeProvider(mode) {
@@ -396,7 +457,6 @@ console.log("背景色:", theme.colors.bg);
 
 ThemeProvider("dark");
 console.log("背景色:", theme.colors.bg);`}
-                expectedOutput="主题切换: light\n背景色: #fff\n主题切换: dark\n背景色: #1a1a1a"
               />
             </div>
           </section>

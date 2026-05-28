@@ -52,7 +52,15 @@ console.log(matchRoute("/nonexistent"));`}</pre>
                 创建路由映射，/users 返回 "用户列表"
               </p>
               <CodeExercise
-                initialCode={`const routes = {
+                initialCode={`// const routes = { ... };
+
+function getPage(path) {
+  // return page name or "404"
+}
+
+console.log(getPage("/users"));
+console.log(getPage("/"));`}
+                expectedOutput={`const routes = {
   "/": "首页",
   "/users": "用户列表",
   "/products": "商品列表"
@@ -64,7 +72,6 @@ function getPage(path) {
 
 console.log(getPage("/users"));
 console.log(getPage("/"));`}
-                expectedOutput="用户列表\n首页"
               />
             </div>
           </section>
@@ -102,7 +109,17 @@ console.log("当前路由:", app);`}</pre>
                 用 Router 显示 Dashboard 组件
               </p>
               <CodeExercise
-                initialCode={`const routes = [
+                initialCode={`// const routes = [
+//   { path: "/", component: () => "Home" },
+//   { path: "/dashboard", component: () => "Dashboard" }
+// ];
+
+function navigate(path) {
+  // find route and return component result
+}
+
+console.log(navigate("/dashboard"));`}
+                expectedOutput={`const routes = [
   { path: "/", component: () => "Home" },
   { path: "/dashboard", component: () => "Dashboard" }
 ];
@@ -113,7 +130,6 @@ function navigate(path) {
 }
 
 console.log(navigate("/dashboard"));`}
-                expectedOutput="Dashboard"
               />
             </div>
           </section>
@@ -152,7 +168,19 @@ console.log("path=/users:", Routes({ routes: routeConfig, currentPath: "/users" 
                 配置登录页路由 /login
               </p>
               <CodeExercise
-                initialCode={`const routes = [
+                initialCode={`// const routes = [
+//   { path: "/", element: "HomePage" },
+//   { path: "/login", element: "LoginPage" },
+//   { path: "/register", element: "RegisterPage" }
+// ];
+
+function match(path) {
+  // return matched element or "404"
+}
+
+console.log(match("/login"));
+console.log(match("/register"));`}
+                expectedOutput={`const routes = [
   { path: "/", element: "HomePage" },
   { path: "/login", element: "LoginPage" },
   { path: "/register", element: "RegisterPage" }
@@ -165,7 +193,6 @@ function match(path) {
 
 console.log(match("/login"));
 console.log(match("/register"));`}
-                expectedOutput="LoginPage\nRegisterPage"
               />
             </div>
           </section>
@@ -200,7 +227,12 @@ console.log(link);`}</pre>
                 创建 NavLink 组件，显示导航链接
               </p>
               <CodeExercise
-                initialCode={`function NavLink({ to, label }) {
+                initialCode={`// function NavLink({ to, label }) { ... }
+
+NavLink({ to: "/", label: "首页" });
+NavLink({ to: "/about", label: "关于" });
+NavLink({ to: "/contact", label: "联系" });`}
+                expectedOutput={`function NavLink({ to, label }) {
   console.log("NavLink:", label, "->", to);
   return \`<a href="\${to}">\${label}</a>\`;
 }
@@ -208,7 +240,6 @@ console.log(link);`}</pre>
 NavLink({ to: "/", label: "首页" });
 NavLink({ to: "/about", label: "关于" });
 NavLink({ to: "/contact", label: "联系" });`}
-                expectedOutput="NavLink: 首页 -> /\nNavLink: 关于 -> /about\nNavLink: 联系 -> /contact"
               />
             </div>
           </section>
@@ -259,7 +290,11 @@ console.log("params:", extractParams(path, "/users/:id"));`}</pre>
                 提取 /products/:productId 的参数
               </p>
               <CodeExercise
-                initialCode={`function getParams(path, pattern) {
+                initialCode={`// function getParams(path, pattern) { ... }
+
+const params = getParams("/products/456", "/products/:productId");
+console.log("productId:", params.productId);`}
+                expectedOutput={`function getParams(path, pattern) {
   const patternParts = pattern.split("/");
   const pathParts = path.split("/");
   const params = {};
@@ -275,7 +310,6 @@ console.log("params:", extractParams(path, "/users/:id"));`}</pre>
 
 const params = getParams("/products/456", "/products/:productId");
 console.log("productId:", params.productId);`}
-                expectedOutput="productId: 456"
               />
             </div>
           </section>
@@ -313,7 +347,13 @@ console.log(UsersLayout(UserProfile({ id: 123 })));`}</pre>
                 实现博客嵌套路由 /blog → BlogLayout → PostList
               </p>
               <CodeExercise
-                initialCode={`function BlogLayout({ children }) {
+                initialCode={`// function BlogLayout({ children }) { ... }
+// function PostList() { ... }
+// function PostDetail({ id }) { ... }
+
+// /blog 渲染 PostList
+// /blog/99 渲染 PostDetail`}
+                expectedOutput={`function BlogLayout({ children }) {
   return "BlogLayout(" + children + ")";
 }
 
@@ -325,7 +365,6 @@ console.log(BlogLayout(PostList()));
 
 // /blog/99 渲染 PostDetail
 console.log(BlogLayout(PostDetail({ id: 99 })));`}
-                expectedOutput="BlogLayout(PostList)\nBlogLayout(Post: 99)"
               />
             </div>
           </section>
@@ -367,7 +406,15 @@ navigate(-1);`}</pre>
                 实现登录后导航到首页
               </p>
               <CodeExercise
-                initialCode={`function navigate(to) {
+                initialCode={`// function navigate(to) { ... }
+
+function login(username) {
+  console.log("登录用户:", username);
+  navigate("/home");
+}
+
+login("admin");`}
+                expectedOutput={`function navigate(to) {
   console.log("导航到:", to);
 }
 
@@ -377,7 +424,6 @@ function login(username) {
 }
 
 login("admin");`}
-                expectedOutput="登录用户: admin\n导航到: /home"
               />
             </div>
           </section>
@@ -401,7 +447,12 @@ login("admin");`}
                 实现一个简单的路由系统，支持首页和用户页
               </p>
               <CodeExercise
-                initialCode={`const routes = {
+                initialCode={`// function Router(path) { ... }
+
+// Router("/") -> "HomePage"
+// Router("/users") -> "UsersPage"
+// Router("/users/123") -> "UserDetailPage" with params`}
+                expectedOutput={`const routes = {
   "/": "HomePage",
   "/users": "UsersPage",
   "/users/:id": "UserDetailPage"
@@ -437,7 +488,6 @@ function Router(path) {
 console.log(Router("/"));
 console.log(Router("/users"));
 console.log(Router("/users/123"));`}
-                expectedOutput={`HomePage\nUsersPage\nparams: {"id":"123"}\nUserDetailPage`}
               />
             </div>
           </section>

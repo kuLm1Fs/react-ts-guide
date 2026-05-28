@@ -69,11 +69,15 @@ name = 123; // ❌ Type 'number' is not assignable to type 'string'`}</pre>
                 根据上面的例子，用代码验证 JS 的动态类型特性：
               </p>
               <CodeExercise
-                initialCode={`// 试试修改变量的类型
+                initialCode={`// 验证 JS 的动态类型特性
+// 声明一个变量，先赋值字符串，再赋值数字
+// 观察会发生什么
+
+`}
+                expectedOutput={`// JS 动态类型示例
 let value = "hello";
 value = 123; // JS 允许，TS 不允许
 console.log(value);`}
-                expectedOutput="123"
               />
             </div>
           </section>
@@ -126,6 +130,15 @@ let isActive: boolean = true;`}</pre>
                   <p className="text-slate-300 text-sm mb-3">声明变量保存你的信息，然后打印出来：</p>
                   <CodeExercise
                     initialCode={`// 声明你的信息
+// const myName = ...
+// const myAge = ...
+// const isEmployed = ...
+
+// 打印输出
+console.log("姓名:", myName);
+console.log("年龄:", myAge);
+console.log("在职:", isEmployed);`}
+                    expectedOutput={`// 声明你的信息
 const myName = "小明";
 const myAge = 25;
 const isEmployed = true;
@@ -134,7 +147,6 @@ const isEmployed = true;
 console.log("姓名:", myName);
 console.log("年龄:", myAge);
 console.log("在职:", isEmployed);`}
-                    expectedOutput="姓名: 小明\n年龄: 25\n在职: true"
                   />
                 </div>
               </div>
@@ -162,13 +174,22 @@ user.name = "李四";      // 允许 - 属性可以改
                   <h4 className="text-md font-semibold text-amber-400 mb-3">练习 3.2</h4>
                   <p className="text-slate-300 text-sm mb-3">下面代码会输出什么？先猜，再运行验证：</p>
                   <CodeExercise
-                    initialCode={`const person = { name: "张三" };
+                    initialCode={`// 创建一个用户对象
+// 包含 name 和 age 属性
+
+// 修改 name 属性
+// person.name = "李四";
+
+// 打印验证
+
+// 尝试解注释下一行，看看会发生什么
+// person = { name: "王五" };`}
+                    expectedOutput={`const person = { name: "张三" };
 person.name = "李四";
 console.log(person.name);
 
 // 尝试解注释下一行，看看会发生什么
 // person = { name: "王五" };`}
-                    expectedOutput="李四"
                   />
                 </div>
               </div>
@@ -189,12 +210,17 @@ let RGB: [number, number, number] = [255, 128, 0];`}</pre>
                   <p className="text-slate-300 text-sm mb-3">创建一个数组存多个水果名，然后打印第二个：</p>
                   <CodeExercise
                     initialCode={`// 水果数组
+// const fruits = ...
+
+// 打印第二个水果（数组索引从 0 开始）
+console.log("第二个水果:", fruits[1]);
+console.log("数组长度:", fruits.length);`}
+                    expectedOutput={`// 水果数组
 const fruits = ["苹果", "香蕉", "橙子", "葡萄"];
 
 // 打印第二个水果（数组索引从 0 开始）
 console.log("第二个水果:", fruits[1]);
 console.log("数组长度:", fruits.length);`}
-                    expectedOutput="第二个水果: 香蕉\n数组长度: 4"
                   />
                 </div>
               </div>
@@ -221,6 +247,14 @@ if (move === Direction.Up) {
                   <p className="text-slate-300 text-sm mb-3">创建一个订单状态枚举，并使用它：</p>
                   <CodeExercise
                     initialCode={`// 订单状态枚举
+// 使用对象表示状态
+
+// 使用
+// const myOrder = ...
+
+// 判断订单是否已发货
+// if (myOrder === ...) { ... }`}
+                    expectedOutput={`// 订单状态枚举
 const OrderStatus = {
   Pending: "PENDING",
   Paid: "PAID",
@@ -238,7 +272,6 @@ if (myOrder === OrderStatus.Shipped || myOrder === OrderStatus.Delivered) {
 } else {
   console.log("订单还在处理中");
 }`}
-                    expectedOutput="我的订单状态: PAID\n订单还在处理中"
                   />
                 </div>
               </div>
@@ -271,13 +304,18 @@ function createUser(name: string, age?: number): string {
               <h4 className="text-md font-semibold text-amber-400 mb-3">练习 4.1</h4>
               <p className="text-slate-300 text-sm mb-3">写一个函数计算两个数的和：</p>
               <CodeExercise
-                initialCode={`function sum(a, b) {
+                initialCode={`// 写一个函数计算两个数的和
+// function sum(a, b) { ... }
+
+console.log("3 + 5 =", sum(3, 5));
+console.log("10 + 20 =", sum(10, 20));`}
+                expectedOutput={`// 写一个函数计算两个数的和
+function sum(a, b) {
   return a + b;
 }
 
 console.log("3 + 5 =", sum(3, 5));
 console.log("10 + 20 =", sum(10, 20));`}
-                expectedOutput="3 + 5 = 8\n10 + 20 = 30"
               />
             </div>
 
@@ -285,7 +323,15 @@ console.log("10 + 20 =", sum(10, 20));`}
               <h4 className="text-md font-semibold text-amber-400 mb-3">练习 4.2</h4>
               <p className="text-slate-300 text-sm mb-3">写一个函数，接受名字和年龄（可选），返回问候语：</p>
               <CodeExercise
-                initialCode={`function greet(name, age) {
+                initialCode={`// 写一个 greet 函数
+// 接收 name 和可选的 age 参数
+// 如果有 age，返回 "你好，name！你age岁了。"
+// 如果没有 age，返回 "你好，name！"
+
+console.log(greet("张三"));
+console.log(greet("李四", 25));`}
+                expectedOutput={`// 写一个 greet 函数
+function greet(name, age) {
   if (age !== undefined) {
     return \`你好，\${name}！你\${age}岁了。\`;
   }
@@ -294,7 +340,6 @@ console.log("10 + 20 =", sum(10, 20));`}
 
 console.log(greet("张三"));
 console.log(greet("李四", 25));`}
-                expectedOutput="你好，张三！\n你好，李四！你25岁了。"
               />
             </div>
           </section>
@@ -315,6 +360,13 @@ console.log(greet("李四", 25));`}
               <p className="text-slate-300 text-sm mb-3">创建一个用户管理系统：</p>
               <CodeExercise
                 initialCode={`// 用户对象
+// const user = { name: ..., email: ..., age: ... };
+
+// 函数打印用户简介
+// function printProfile(user) { ... }
+
+printProfile(user);`}
+                expectedOutput={`// 用户对象
 const user = {
   name: "张三",
   email: "zhangsan@example.com",
@@ -329,7 +381,6 @@ function printProfile(user) {
 }
 
 printProfile(user);`}
-                expectedOutput="姓名: 张三\n邮箱: zhangsan@example.com\n年龄: 25"
               />
             </div>
           </section>

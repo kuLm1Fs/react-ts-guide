@@ -51,6 +51,16 @@ console.log("ref 仍是:", countRef.current);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟 ref
+// const inputRef = { current: "" };
+
+console.log("初始值:", inputRef.current);
+
+inputRef.current = "你好";
+console.log("输入后:", inputRef.current);
+
+inputRef.current = "";
+console.log("清空后:", inputRef.current);`}
+                expectedOutput={`// 模拟 ref
 const inputRef = { current: "" };
 
 console.log("初始值:", inputRef.current);
@@ -60,7 +70,6 @@ console.log("输入后:", inputRef.current);
 
 inputRef.current = "";
 console.log("清空后:", inputRef.current);`}
-                expectedOutput="初始值:\n输入后: 你好\n清空后:"
               />
             </div>
           </section>
@@ -106,6 +115,17 @@ console.log("r1:", r1, "r2:", r2, "r3:", r3);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟 expensive 计算
+// let computationCount = 0;
+// const cache = {};
+// function expensiveCalc(n) { ... }
+
+// 缓存
+cache[1] = expensiveCalc(1);
+cache[1] = expensiveCalc(1); // 应该用缓存
+cache[2] = expensiveCalc(2);
+
+console.log("计算次数:", computationCount);`}
+                expectedOutput={`// 模拟 expensive 计算
 let computationCount = 0;
 const cache = {};
 
@@ -121,7 +141,6 @@ cache[1] = expensiveCalc(1); // 应该用缓存
 cache[2] = expensiveCalc(2);
 
 console.log("计算次数:", computationCount);`}
-                expectedOutput="计算第 1 次\n计算第 2 次\n计算次数: 2"
               />
             </div>
           </section>
@@ -164,6 +183,22 @@ fn3();`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟 useCallback
+// let handler = null;
+// let lastId = null;
+// function useCallback(fn, id) { ... }
+
+// 组件1
+const handleClick = useCallback(() => console.log("点击!"), 1);
+handleClick();
+
+// 相同 id，复用
+const handleClick2 = useCallback(() => console.log("点击!"), 1);
+handleClick2();
+
+// 不同 id
+const handleClick3 = useCallback(() => console.log("新点击!"), 2);
+handleClick3();`}
+                expectedOutput={`// 模拟 useCallback
 let handler = null;
 let lastId = null;
 
@@ -187,7 +222,6 @@ handleClick2();
 // 不同 id
 const handleClick3 = useCallback(() => console.log("新点击!"), 2);
 handleClick3();`}
-                expectedOutput="创建新处理函数 id: 1\n点击!\n点击!\n创建新处理函数 id: 2\n新点击!"
               />
             </div>
           </section>
@@ -223,6 +257,18 @@ console.log("count:", getCount());`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 自定义 useInput
+// function useInput(initialValue) { ... }
+
+const [getValue, setValue, reset] = useInput("");
+
+console.log("初始:", getValue());
+setValue("Hello");
+console.log("输入:", getValue());
+setValue("World");
+console.log("再次输入:", getValue());
+reset();
+console.log("重置:", getValue());`}
+                expectedOutput={`// 自定义 useInput
 function useInput(initialValue) {
   let value = initialValue;
   const setValue = (v) => { value = v; };
@@ -239,7 +285,6 @@ setValue("World");
 console.log("再次输入:", getValue());
 reset();
 console.log("重置:", getValue());`}
-                expectedOutput="初始:\n输入: Hello\n再次输入: World\n重置:"
               />
             </div>
           </section>
@@ -288,6 +333,17 @@ console.log("after reset:", state.count);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// reducer
+// function reducer(state, action) { ... }
+
+let todos = { items: [] };
+
+todos = reducer(todos, { type: "add", text: "学习 React" });
+todos = reducer(todos, { type: "add", text: "学习 TypeScript" });
+console.log("items:", todos.items);
+
+todos = reducer(todos, { type: "clear" });
+console.log("after clear:", todos.items);`}
+                expectedOutput={`// reducer
 function reducer(state, action) {
   switch (action.type) {
     case "add":
@@ -307,7 +363,6 @@ console.log("items:", todos.items);
 
 todos = reducer(todos, { type: "clear" });
 console.log("after clear:", todos.items);`}
-                expectedOutput="items: 学习 React,学习 TypeScript\nafter clear: "
               />
             </div>
           </section>
@@ -347,6 +402,14 @@ console.log("Hooks 必须在顶层调用，顺序不能变");`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 验证调用顺序
+// let hookCallOrder = [];
+// function useState(val) { ... }
+// function useEffect(fn) { ... }
+// function MyComponent() { ... }
+
+MyComponent();
+console.log("调用顺序:", hookCallOrder.join(" -> "));`}
+                expectedOutput={`// 验证调用顺序
 let hookCallOrder = [];
 
 function useState(val) {
@@ -367,7 +430,6 @@ function MyComponent() {
 
 MyComponent();
 console.log("调用顺序:", hookCallOrder.join(" -> "));`}
-                expectedOutput="调用顺序: useState -> useState -> useEffect"
               />
             </div>
           </section>
@@ -404,6 +466,19 @@ console.log("password:", getForm().password);`}</pre>
               </p>
               <CodeExercise
                 initialCode={`// 模拟自动保存
+// let content = "";
+// let saveCount = 0;
+// let lastSaved = null;
+// function useAutoSave() { ... }
+
+const [setContent, save, getLastSaved] = useAutoSave();
+
+setContent("这是要保存的内容...");
+save();
+setContent("修改后的内容");
+save();
+console.log("最后保存的内容:", getLastSaved());`}
+                expectedOutput={`// 模拟自动保存
 let content = "";
 let saveCount = 0;
 let lastSaved = null;
@@ -430,7 +505,6 @@ save();
 setContent("修改后的内容");
 save();
 console.log("最后保存的内容:", getLastSaved());`}
-                expectedOutput="内容更新: 这是要保存的内容...\n保存成功次数: 1\n内容更新: 修改后的内容\n保存成功次数: 2\n最后保存的内容: 这是要保存的内容..."
               />
             </div>
           </section>
@@ -455,6 +529,16 @@ console.log("最后保存的内容:", getLastSaved());`}
               </p>
               <CodeExercise
                 initialCode={`// useToggle
+// function useToggle(initial) { ... }
+
+const [getValue, toggle] = useToggle(false);
+
+console.log("初始:", getValue());
+toggle();
+console.log("切换后:", getValue());
+toggle();
+console.log("再切换:", getValue());`}
+                expectedOutput={`// useToggle
 function useToggle(initial) {
   let value = initial;
   const toggle = () => { value = !value; };
@@ -468,7 +552,6 @@ toggle();
 console.log("切换后:", getValue());
 toggle();
 console.log("再切换:", getValue());`}
-                expectedOutput="初始: false\n切换后: true\n再切换: false"
               />
             </div>
           </section>
