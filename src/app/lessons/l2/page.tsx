@@ -272,8 +272,8 @@ const config2 = {
 
 console.log("完整配置:", JSON.stringify(config1));
 console.log("简化配置:", JSON.stringify(config2));`}
-                expectedOutput="完整配置: {"url":"https://api.example.com","timeout":5000,"headers":{"Content-Type":"application/json"}}
-简化配置: {"url":"https://api.example.com"}"
+                expectedOutput={`完整配置: {"url":"https://api.example.com","timeout":5000,"headers":{"Content-Type":"application/json"}}
+简化配置: {"url":"https://api.example.com"}`}
               />
             </div>
           </section>
