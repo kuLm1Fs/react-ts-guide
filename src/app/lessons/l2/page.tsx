@@ -267,12 +267,6 @@ const rect: Rectangle = {
 console.log("圆形:", JSON.stringify(circle));
 console.log("矩形:", JSON.stringify(rect));`}
               />
-  height: 20
-};
-
-console.log("圆形:", JSON.stringify(circle));
-console.log("矩形:", JSON.stringify(rect));`}
-              />
             </div>
           </section>
 
