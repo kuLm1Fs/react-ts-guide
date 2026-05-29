@@ -1,6 +1,6 @@
 # React + TypeScript 学习指南
 
-从零开始系统掌握 TypeScript 与 React，目标：**能参与团队 React 项目**。
+从零开始系统掌握 TypeScript 与 React。
 
 ## 学习计划
 
@@ -69,6 +69,22 @@ src/
 - **L16** - 数据库集成 (Prisma)
 - **L17** - 认证与会话
 - **L18** - 部署与优化
+
+## 部署
+
+本项目使用 [Vercel](https://vercel.com) 部署。
+
+### 部署步骤
+
+1. 将项目推送到 GitHub 仓库
+2. 在 [vercel.com](https://vercel.com) 导入项目
+3. 配置环境变量（如有需要）：
+   - Vercel 面板或 `vercel env add` 管理环境变量
+   - 示例：`vercel env add DATABASE_URL`
+
+### 访问部署
+
+部署完成后，访问 `https://[repo-owner]-[repo-name].vercel.app`
 
 ## License
 
